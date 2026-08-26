@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fernando Alonso — Fan Hub</title>
+  <meta name="description" content="An unofficial fan tribute hub for Fernando Alonso — career stats, helmet liveries, circuits, and a reaction-time challenge.">
+
+  <!-- A tiny SVG "favicon" (the icon shown in the browser tab), written
+       directly as a data URL instead of a separate .ico/.png file. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%2304100b'/%3E%3Ccircle cx='50' cy='50' r='22' fill='%23c6ff5e'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: "preconnect" tells the browser to start the
+       connection to these domains early, so the fonts arrive a little
+       faster once requested by the stylesheet link below. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- All CSS lives here in one <style> block, organized into clearly
+       labeled sections (see the numbered table of contents right at
+       the top of the CSS below) so related rules stay together and
+       are easy to find with Ctrl+F / Cmd+F. -->
+  <style>
+/* =========================================================================
+   STYLE.CSS — all the visual design for the fan page.
+
+   HOW THIS FILE IS ORGANISED (top to bottom):
+     1. TOKENS        - reusable values (colors, fonts) stored as variables
+     2. BASE RESET    - small fixes applied to every page, everywhere
+     3. NAV           - the top navigation bar
+     4. HERO          - the big intro section at the top of the page
+     5. MENTALITY     - the pull-quote section
+     6. MOMENTS STRIP - the horizontally-scrolling career timeline
+     7. TABS          - the On Track / Off Track toggle
+     8. HELMETS       - the helmet picker
+     9. CIRCUITS      - the circuit picker
+    10. BANNER        - the plain "2x champion" strip
+    11. GAME          - the reaction-time game
+    12. FOOTER        - the bottom of the page
+    13. MOTION        - respecting users who prefer less animation
+
+   TIP: use Ctrl+F / Cmd+F and search for one of the ALL-CAPS section
+   names above to jump straight to that part of the file.
+   ========================================================================= */
+
+
+/* ============ 1. TOKENS ============
+   A CSS "variable" (technically called a "custom property") lets you name
+   a value once and reuse it everywhere. ":root" means "the whole page can
+   see these". If you ever want to re-theme the whole site (e.g. change
+   the lime-green accent to blue), you only need to edit it in ONE place
+   here, instead of hunting through hundreds of lines below. */
+:root{
+  --bg:#04100b;              /* page background (very dark green) */
+  --bg-2:#081b13;            /* a slightly lighter background, used for gradients */
+  --panel:#0d2118;           /* background for "cards" / boxes */
+  --panel-2:#122a1f;         /* a second, slightly different card background */
+  --line:rgba(244,242,230,0.14); /* faint border color used everywhere */
+  --chalk:#f4f2e8;           /* main off-white text color */
+  --chalk-dim:#9fb0a3;       /* dimmer/secondary text color */
+  --lime:#c6ff5e;            /* the bright accent color (buttons, highlights) */
+  --lime-dim:#8fce3d;        /* a slightly darker version of the accent */
+  --red:#e2373f;             /* used only for the "lights out" game */
+
+  --f-display:'Anton', sans-serif;        /* big bold headings */
+  --f-body:'Work Sans', sans-serif;       /* normal paragraph text */
+  --f-mono:'JetBrains Mono', monospace;   /* small uppercase "label" text */
+}
+
+/* ============ 2. BASE RESET ============
+   Browsers ship with their own default spacing/fonts. This section
+   overrides those defaults so the page looks the same everywhere and
+   so later CSS is easier to reason about. */
+
+/* Makes width/height calculations include padding+border, which is far
+   more intuitive than the browser's old default. Applied to literally
+   every element via the "*" (universal) selector. */
+*{ box-sizing:border-box; }
+
+/* When a link like <a href="#helmets"> is clicked, animate the scroll
+   instead of jumping instantly. */
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--chalk);
+  font-family:var(--f-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased; /* smoother text on Mac/iOS */
+  overflow-x:hidden; /* stops any accidental horizontal scrollbars */
+}
+
+/* All headings share the same "display" font and are automatically
+   uppercased, so individual headings don't need to repeat this. */
+h1,h2,h3{ margin:0; font-family:var(--f-display); font-weight:400; text-transform:uppercase; }
+
+a{ color:inherit; text-decoration:none; }
+button{ font-family:var(--f-body); cursor:pointer; }
+img,svg{ display:block; max-width:100%; } /* images never overflow their container */
+
+/* Only shows a focus outline when navigating with a keyboard (Tab key),
+   not on every mouse click — keeps things accessible without looking messy. */
+:focus-visible{ outline:3px solid var(--lime); outline-offset:3px; }
+
+/* Small reusable text styles used across several sections */
+.eyebrow{
+  font-family:var(--f-mono);
+  font-size:0.72rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--lime);
+  margin:0 0 0.9rem;
+}
+.section-sub{ color:var(--chalk-dim); max-width:52ch; margin:0.5rem 0 2.2rem; font-size:1rem; }
+
+/* Every <section> gets the same outer spacing and a max page width, so
+   individual sections below don't need to repeat "padding" and "margin". */
+section{ padding:6rem 6vw; max-width:1280px; margin:0 auto; }
+.section-head h2{ font-size:clamp(2.2rem, 6vw, 4rem); line-height:0.95; }
+
+
+/* ============ 3. NAV ============ */
+.site-nav{
+  position:fixed; top:0; left:0; right:0; z-index:50; /* stays glued to the top, above everything */
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 5vw;
+  background:linear-gradient(180deg, rgba(4,16,11,0.92), rgba(4,16,11,0)); /* fades to transparent */
+  backdrop-filter:blur(2px);
+}
+.logo-mark{
+  font-family:var(--f-display);
+  font-size:1.3rem;
+  letter-spacing:0.04em;
+  color:var(--chalk);
+  display:flex; align-items:center; gap:0.5rem;
+}
+.logo-mark .dot{ width:8px; height:8px; border-radius:50%; background:var(--lime); }
+
+.nav-links{ display:flex; gap:2rem; font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; font-weight:600; }
+.nav-links a{ opacity:0.8; transition:opacity 0.15s ease, color 0.15s ease; padding-bottom:2px; border-bottom:1px solid transparent; }
+.nav-links a:hover{ opacity:1; color:var(--lime); border-color:var(--lime); }
+
+.nav-badge{
+  font-family:var(--f-mono);
+  font-size:0.68rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--bg);
+  background:var(--lime);
+  padding:0.4rem 0.7rem;
+  border-radius:2px;
+}
+
+/* The hamburger (☰) button — hidden on desktop, shown on mobile below */
+.nav-toggle{
+  display:none;
+  background:none; border:1px solid var(--line); border-radius:2px;
+  width:38px; height:38px; padding:0; cursor:pointer;
+  flex-direction:column; align-items:center; justify-content:center; gap:4px;
+}
+.nav-toggle span{ width:18px; height:2px; background:var(--chalk); display:block; transition:transform 0.15s ease, opacity 0.15s ease; }
+/* When JS adds the "nav-open" class, morph the 3 bars into an "X" */
+.site-nav.nav-open .nav-toggle span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+.site-nav.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
+.site-nav.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+
+/* On small screens, turn the nav links into a dropdown menu instead of
+   a row, and show the hamburger button. */
+@media (max-width:760px){
+  .nav-links{
+    display:flex; flex-direction:column; gap:0;
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--bg-2); border-bottom:1px solid var(--line);
+    max-height:0; overflow:hidden; transition:max-height 0.2s ease; /* collapsed by default */
+  }
+  .nav-links a{ padding:1rem 5vw; border-bottom:1px solid var(--line); }
+  .site-nav.nav-open .nav-links{ max-height:320px; } /* JS toggles "nav-open" to reveal this */
+  .nav-toggle{ display:flex; }
+  .nav-badge{ display:none; }
+}
+
+
+/* ============ 4. HERO ============
+   The full-height introduction section at the very top of the page. */
+.hero{
+  position:relative;
+  min-height:100vh; /* fills the whole screen height on load */
+  display:flex; flex-direction:column; justify-content:center;
+  background:
+    radial-gradient(ellipse 60% 45% at 80% 15%, rgba(198,255,94,0.10), transparent 60%),
+    linear-gradient(180deg, var(--bg-2), var(--bg) 75%);
+  border-bottom:1px solid var(--line);
+  padding:8rem 5vw 4rem;
+  overflow:hidden;
+}
+.hero-track-lines{ position:absolute; inset:0; z-index:0; opacity:0.35; pointer-events:none; }
+
+.hero-eyebrow{
+  font-family:var(--f-mono); font-size:0.78rem; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--lime); position:relative; z-index:1;
+}
+.hero-name{
+  position:relative; z-index:1;
+  font-family:var(--f-display);
+  line-height:0.82;
+  color:var(--chalk);
+  font-size:clamp(3.6rem, 15vw, 11.5rem); /* scales fluidly between phone and desktop sizes */
+  letter-spacing:-0.01em;
+}
+/* The huge outlined "ALONSO" text — no fill color, just a stroke */
+.hero-name .big{
+  font-size:clamp(4.6rem, 19vw, 15rem);
+  color:transparent;
+  -webkit-text-stroke:2px var(--chalk);
+  display:block;
+}
+
+.hero-foot{
+  position:relative; z-index:1;
+  display:flex; flex-wrap:wrap; gap:2.5rem;
+  align-items:flex-end; justify-content:space-between;
+  margin-top:3rem;
+}
+.hero-desc{ max-width:42ch; color:var(--chalk-dim); font-size:1.02rem; }
+
+/* ---- Hero photo slot ----
+   To use a real photo: put an image file next to index.html and change
+   the <img src="..."> in the HTML to that filename. Until you do, the
+   little onerror="" handler on the <img> tag (see index.html) adds the
+   "img-missing" class below, which hides the broken image icon and
+   shows a small text label instead. */
+.hero-photo{
+  position:relative;
+  flex:0 0 auto;
+  width:150px; height:190px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  overflow:hidden;
+}
+.hero-photo img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.hero-photo .photo-tag{
+  position:absolute; left:0; right:0; bottom:0;
+  background:rgba(4,16,11,0.82);
+  font-family:var(--f-mono); font-size:0.6rem; letter-spacing:0.05em;
+  text-transform:uppercase; color:var(--chalk-dim);
+  padding:0.4rem 0.5rem; text-align:center;
+  opacity:0; pointer-events:none; transition:opacity 0.15s ease;
+}
+.hero-photo.img-missing{
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  border:1px dashed var(--line); padding:0.7rem;
+}
+.hero-photo.img-missing img{ display:none; }
+.hero-photo.img-missing .photo-tag{ position:static; opacity:1; background:none; padding:0; line-height:1.5; }
+.hero-photo:not(.img-missing) .photo-tag{ opacity:0; }
+@media (max-width:600px){ .hero-photo{ width:120px; height:150px; } }
+
+/* The "next race" countdown box */
+.race-widget{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-left:3px solid var(--lime);
+  padding:1.1rem 1.4rem;
+  min-width:280px;
+  max-width:340px;
+}
+.race-widget .rw-label{ font-family:var(--f-mono); font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--chalk-dim); margin-bottom:0.4rem; }
+.race-widget .rw-name{ font-family:var(--f-display); font-size:1.2rem; margin-bottom:0.15rem; }
+.race-widget .rw-place{ font-family:var(--f-mono); font-size:0.72rem; color:var(--chalk-dim); margin-bottom:0.7rem; }
+.countdown{ display:flex; gap:0.9rem; font-family:var(--f-mono); }
+.countdown div{ text-align:center; }
+.countdown .cd-num{ font-size:1.4rem; font-weight:700; color:var(--lime); }
+.countdown .cd-unit{ font-size:0.6rem; letter-spacing:0.08em; color:var(--chalk-dim); text-transform:uppercase; }
+
+.upcoming-list{ margin-top:1rem; padding-top:0.9rem; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:0.55rem; }
+.upcoming-row{ display:flex; justify-content:space-between; align-items:baseline; gap:0.8rem; }
+.upcoming-row .ur-date{ font-family:var(--f-mono); font-size:0.7rem; color:var(--chalk-dim); min-width:52px; }
+.upcoming-row .ur-name{ font-family:var(--f-body); font-size:0.82rem; color:var(--chalk); flex:1; }
+.upcoming-row .ur-place{ font-family:var(--f-mono); font-size:0.66rem; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:0.03em; }
+.rw-note{ margin-top:0.8rem; font-family:var(--f-mono); font-size:0.62rem; color:var(--chalk-dim); opacity:0.7; line-height:1.5; }
+
+.scroll-cue{
+  position:absolute; bottom:1.6rem; right:6vw; z-index:1;
+  font-family:var(--f-mono); font-size:0.7rem; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--chalk-dim);
+  display:flex; align-items:center; gap:0.5rem;
+}
+.scroll-cue .line{ width:24px; height:1px; background:var(--chalk-dim); }
+/* Only animate the little "bob" if the user hasn't asked their OS for
+   reduced motion (see section 13 at the bottom for more on this). */
+@media (prefers-reduced-motion:no-preference){
+  .scroll-cue{ animation:bob 2.2s ease-in-out infinite; }
+}
+@keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+
+
+/* ============ 5. MENTALITY (pull statement) ============ */
+.mentality{ display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+.mentality-copy p{
+  font-family:var(--f-display);
+  font-weight:400;
+  text-transform:none;
+  font-size:clamp(1.6rem, 3vw, 2.4rem);
+  line-height:1.25;
+  color:var(--chalk);
+}
+.mentality-copy p em{ color:var(--lime); font-style:normal; } /* <em> used for color emphasis, not italics */
+.mentality-copy .cite{ margin-top:1.2rem; font-family:var(--f-mono); font-size:0.8rem; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:0.06em; }
+.mentality-cards{ display:flex; flex-direction:column; gap:1.4rem; }
+.moment-card{ background:var(--panel); border:1px solid var(--line); overflow:hidden; }
+.moment-card .art{ aspect-ratio:16/10; width:100%; }
+.moment-card .cap{ padding:0.8rem 1rem; font-family:var(--f-mono); font-size:0.75rem; color:var(--chalk-dim); letter-spacing:0.04em; }
+
+/* ---- Generic image-placeholder pattern (".art") ----
+   This same pattern is reused for the moments strip, helmets, and
+   circuits below. The image itself sits in a box with class "art".
+   If the <img> fails to load, its onerror handler (in the HTML/JS)
+   adds "img-missing" to the parent ".art", which is what triggers
+   these two rules to hide the broken image and show the dashed
+   placeholder + filename instead. */
+.art{ position:relative; overflow:hidden; background:var(--panel-2); border:1px solid var(--line); }
+.art img{ width:100%; height:100%; object-fit:cover; display:block; }
+.art .art-tag{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:0.9rem; gap:0.3rem; flex-direction:column;
+  font-family:var(--f-mono); font-size:0.62rem; letter-spacing:0.04em; text-transform:uppercase;
+  color:var(--chalk-dim); background:var(--panel-2); border:1px dashed var(--line);
+  opacity:0; pointer-events:none; transition:opacity 0.15s ease;
+}
+.art .art-tag .fname{ color:var(--lime); font-size:0.68rem; letter-spacing:0.02em; text-transform:none; }
+.art.img-missing img{ display:none; }
+.art.img-missing .art-tag{ opacity:1; }
+
+@media (max-width:900px){ .mentality{ grid-template-columns:1fr; } }
+
+
+/* ============ 6. MOMENTS STRIP ============
+   A horizontally-scrolling row of cards, built with flexbox instead of
+   grid so the cards can overflow sideways and be scrolled/dragged. */
+.strip-wrap{ margin-top:1rem; }
+.strip{
+  display:flex; gap:1.1rem; overflow-x:auto; padding-bottom:1rem;
+  scroll-snap-type:x proximity; /* cards gently "snap" into place while scrolling */
+  cursor:grab;
+  scrollbar-width:thin; scrollbar-color:var(--lime-dim) transparent; /* Firefox scrollbar styling */
+}
+.strip:active{ cursor:grabbing; }
+/* Chrome/Safari scrollbar styling (Firefox uses the two lines above instead) */
+.strip::-webkit-scrollbar{ height:6px; }
+.strip::-webkit-scrollbar-thumb{ background:var(--lime-dim); border-radius:3px; }
+.strip-card{
+  flex:0 0 auto; width:min(78vw, 300px); /* never grows/shrinks, sized by viewport width up to 300px */
+  scroll-snap-align:start;
+  background:var(--panel); border:1px solid var(--line);
+  user-select:none; /* stops text getting highlighted while drag-scrolling */
+}
+.strip-card .art{ width:100%; aspect-ratio:4/3; }
+.strip-card .cap{ padding:0.9rem 1rem; }
+.strip-card .cap .yr{ font-family:var(--f-mono); font-size:0.68rem; color:var(--lime); letter-spacing:0.08em; text-transform:uppercase; }
+.strip-card .cap .ti{ font-family:var(--f-display); font-size:1.1rem; margin-top:0.3rem; }
+
+
+/* ============ 7. TABS: ON TRACK / OFF TRACK ============ */
+.tab-bar{ display:flex; gap:0; border-bottom:1px solid var(--line); margin-top:0.5rem; }
+.tab-btn{
+  background:none; border:none; color:var(--chalk-dim);
+  font-family:var(--f-display); font-size:clamp(1.4rem,3vw,2rem);
+  padding:0.6rem 1.6rem 0.9rem 0; margin-right:1.6rem;
+  border-bottom:3px solid transparent;
+  transition:color 0.15s ease, border-color 0.15s ease;
+}
+/* JS toggles this "active" class when a tab is clicked (see the <script> block below) */
+.tab-btn.active{ color:var(--lime); border-color:var(--lime); }
+.tab-panel{ display:none; padding-top:2.2rem; }
+.tab-panel.active{ display:block; }
+
+.stat-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px; background:var(--line); border:1px solid var(--line); /* the "gap" color doubles as thin grid lines */
+}
+.stat-card{ background:var(--panel); padding:1.8rem 1.2rem; text-align:center; }
+.stat-num{ font-family:var(--f-mono); font-weight:700; font-size:clamp(1.8rem,4vw,2.3rem); color:var(--lime); display:block; }
+.stat-label{ font-size:0.74rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--chalk-dim); margin-top:0.4rem; display:block; }
+
+.fact-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem; }
+.fact-card{ background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--lime); padding:1.4rem 1.5rem; }
+.fact-card h4{ font-family:var(--f-display); font-size:1.05rem; margin-bottom:0.5rem; }
+.fact-card p{ color:var(--chalk-dim); font-size:0.92rem; margin:0; }
+
+.generator{
+  margin-top:2.2rem; background:var(--panel-2); border:1px solid var(--line);
+  padding:1.8rem; display:flex; flex-direction:column; gap:1rem;
+}
+.generator .eyebrow{ margin-bottom:0; }
+#trivia-text{ font-size:1.05rem; margin:0; min-height:2.6em; transition:opacity 0.2s ease; }
+#trivia-text.fade{ opacity:0; } /* JS briefly adds this class to fade text out before swapping it */
+.btn-lime{
+  align-self:flex-start;
+  background:var(--lime); color:#08170f; border:none;
+  font-family:var(--f-display); font-size:0.95rem; letter-spacing:0.02em;
+  padding:0.8rem 1.5rem; border-radius:2px;
+  transition:transform 0.15s ease, background 0.15s ease;
+}
+.btn-lime:hover{ background:#d8ff85; transform:translateY(-2px); }
+
+
+/* ============ 8. HELMET HALL OF FAME ============ */
+.helmet-strip{ display:flex; gap:1rem; overflow-x:auto; padding:0.5rem 0 1.2rem; }
+.helmet-chip{
+  position:relative;
+  flex:0 0 auto; width:120px; height:120px; border-radius:50%;
+  border:2px solid var(--line); cursor:pointer; overflow:hidden;
+  opacity:0.7; transition:opacity 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  background:var(--panel-2);
+}
+.helmet-chip img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+.helmet-chip:hover{ opacity:0.95; transform:translateY(-3px); }
+.helmet-chip.active{ opacity:1; border-color:var(--lime); } /* JS marks the selected chip with this */
+
+/* Placeholder shown until a real helmet photo is dropped in (matches the
+   "file" property set for each helmet further down in the <script> block) */
+.helmet-chip .chip-tag{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:0.7rem;
+  font-family:var(--f-mono); font-size:0.5rem; letter-spacing:0.02em; text-transform:uppercase;
+  color:var(--chalk-dim); background:var(--panel-2);
+  opacity:0; pointer-events:none; transition:opacity 0.15s ease;
+}
+.helmet-chip .chip-tag .fname{ display:block; margin-top:0.25rem; color:var(--lime); font-size:0.54rem; text-transform:none; word-break:break-all; line-height:1.3; }
+.helmet-chip.img-missing img{ display:none; }
+.helmet-chip.img-missing .chip-tag{ opacity:1; }
+
+.helmet-detail{
+  background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--lime);
+  padding:1.6rem 1.8rem; min-height:110px;
+}
+.helmet-detail h3{ font-size:1.3rem; }
+.helmet-detail .yrs{ font-family:var(--f-mono); font-size:0.8rem; color:var(--chalk-dim); }
+.helmet-detail p{ margin:0.6rem 0 0; color:var(--chalk-dim); max-width:60ch; }
+
+
+/* ============ 9. CIRCUIT GALLERY ============ */
+.circuit-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1.1rem; margin-top:0.5rem; }
+.circuit-card{
+  background:var(--panel); border:1px solid var(--line);
+  cursor:pointer; text-align:left; padding:0; overflow:hidden;
+  opacity:0.78; transition:opacity 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  color:inherit; font-family:inherit; /* undo default <button> styling since this is a <button> element */
+}
+.circuit-card:hover{ opacity:1; transform:translateY(-3px); }
+.circuit-card.active{ opacity:1; border-color:var(--lime); }
+.circuit-card .art{
+  aspect-ratio:16/9;
+  width:100%;
+  background:#f4f2e8; /* these are transparent-background diagrams, drawn for a light backdrop */
+  padding:0.5rem;
+}
+.circuit-card .art img{ object-fit:contain; object-position:center; }
+.circuit-card .cc-label{ padding:0.8rem 1rem; display:flex; justify-content:space-between; align-items:baseline; }
+.circuit-card .cc-name{ font-family:var(--f-display); font-size:1.05rem; }
+.circuit-card .cc-country{ font-family:var(--f-mono); font-size:0.65rem; color:var(--chalk-dim); letter-spacing:0.06em; text-transform:uppercase; }
+.circuit-detail{
+  background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--lime);
+  padding:1.6rem 1.8rem; min-height:110px; margin-top:1.4rem;
+}
+.circuit-detail h3{ font-size:1.3rem; }
+.circuit-detail .yrs{ font-family:var(--f-mono); font-size:0.8rem; color:var(--chalk-dim); }
+.circuit-detail p{ margin:0.6rem 0 0; color:var(--chalk-dim); max-width:60ch; }
+
+
+/* ============ 10. CHAMPION BANNER ============ */
+.champion-banner{ background:var(--lime); color:#08170f; padding:4rem 6vw; text-align:center; }
+.champion-banner h2{ font-size:clamp(2rem,7vw,4.5rem); line-height:0.95; }
+.champion-banner p{ max-width:52ch; margin:1rem auto 0; font-weight:500; }
+
+
+/* ============ 11. PLAY / REACTION GAME ============ */
+.light-rig{
+  display:flex; gap:0.9rem; background:#000; padding:1.4rem 1.6rem;
+  border-radius:6px; width:fit-content; margin:1.4rem 0 1.6rem; border:1px solid var(--line);
+}
+.light-bulb{ width:44px; height:44px; border-radius:50%; background:#3a0f10; box-shadow:inset 0 0 6px rgba(0,0,0,0.6); transition:background 0.15s ease, box-shadow 0.15s ease; }
+.light-bulb.on{ background:var(--red); box-shadow:0 0 22px 4px rgba(226,55,63,0.8); } /* JS adds "on" one bulb at a time */
+#reaction-btn{
+  background:var(--chalk); color:var(--bg); border:none;
+  font-family:var(--f-display); font-size:1.05rem; letter-spacing:0.02em;
+  padding:0.9rem 1.9rem; border-radius:2px; transition:transform 0.15s ease;
+}
+#reaction-btn:hover{ transform:translateY(-2px); }
+#reaction-result{ margin-top:1rem; font-family:var(--f-mono); font-size:1rem; min-height:1.6em; color:var(--chalk-dim); }
+#reaction-result .big{ color:var(--lime); font-weight:700; font-size:1.3rem; }
+
+
+/* ============ 12. FOOTER ============ */
+footer{ border-top:1px solid var(--line); padding:3.5rem 6vw 2.5rem; }
+.footer-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:2rem; padding-bottom:2.4rem; border-bottom:1px solid var(--line); }
+.footer-tagline{ font-family:var(--f-display); font-size:clamp(1.6rem,4vw,2.6rem); max-width:14ch; line-height:1; }
+.social-row{ display:flex; gap:1rem; }
+.social-row a{
+  width:42px; height:42px; border:1px solid var(--line); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; transition:border-color 0.15s ease, color 0.15s ease;
+  color:var(--chalk-dim); font-family:var(--f-mono); font-size:0.7rem;
+}
+.social-row a:hover{ border-color:var(--lime); color:var(--lime); }
+.partner-strip{
+  display:flex; flex-wrap:wrap; gap:2.2rem; padding:2rem 0;
+  font-family:var(--f-mono); font-size:0.75rem; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--chalk-dim); border-bottom:1px solid var(--line);
+}
+.footer-bottom{ padding-top:1.6rem; display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; font-size:0.8rem; color:var(--chalk-dim); }
+
+
+/* ============ 13. MOTION PREFERENCE ============
+   Some people get dizzy or distracted by animation and turn on
+   "reduce motion" in their OS accessibility settings. This media query
+   detects that and forces every animation/transition on the page to be
+   (essentially) instant, as a courtesy to those users. */
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  html{ scroll-behavior:auto; }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION BAR ============
+       Fixed to the top of the page (see .site-nav in the <style> block above). The
+       hamburger button (.nav-toggle) is only visible on small screens;
+       the script below listens for clicks on it to open/close .nav-links. -->
+  <nav class="site-nav" id="siteNav">
+    <div class="logo-mark"><span class="dot"></span>FA14</div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#on-track">On Track</a>
+      <a href="#helmets">Helmets</a>
+      <a href="#circuits">Circuits</a>
+      <a href="#play">Play</a>
+    </div>
+
+    <div class="nav-badge">Aston Martin F1 since 2023</div>
+
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ============ HERO ============
+       The big full-screen intro. id="home" is what the nav's
+       "#home" link scrolls to. -->
+  <header class="hero" id="home">
+
+    <!-- Decorative background curves — purely visual, so aria-hidden
+         hides them from screen readers since they carry no information. -->
+    <svg class="hero-track-lines" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 600 C 250 500, 350 700, 650 550 S 1100 350, 1250 420" stroke="#c6ff5e" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <path d="M-50 480 C 300 420, 400 620, 700 460 S 1150 220, 1300 300" stroke="#f4f2e8" stroke-width="1" fill="none" opacity="0.3"/>
+    </svg>
+
+    <p class="hero-eyebrow">Formula 1 · Car #14 · Two-time world champion</p>
+    <h1 class="hero-name">Fernando<span class="big">Alonso</span></h1>
+
+    <div class="hero-foot">
+      <!--
+        PHOTO SLOT: replace "Images/FernandoAlonso.jpg" below with the filename
+        (or full URL) of a photo you have the rights to use, placed inside
+        the "Images" folder next to this HTML file. If the file can't be found,
+        the onerror attribute automatically adds the "img-missing" class
+        so a text placeholder shows instead of a broken-image icon —
+        that's the same trick used for every other image on this page.
+      -->
+      <div class="hero-photo">
+        <img src="Images/FernandoAlonso.jpg" alt="Fernando Alonso" onerror="this.parentElement.classList.add('img-missing')">
+      </div>
+
+      <p class="hero-desc">Twenty-six seasons, six teams, and a stubbornness that has outlasted three generations of teammates. This is a fan-built tribute hub, not the official site.</p>
+
+      <!-- This whole widget is filled in by the script below (see the
+           "Upcoming Grands Prix" section of that file) — everything
+           here starts as an empty placeholder ("—" / "00"). -->
+      <div class="race-widget">
+        <div class="rw-label">Next Grand Prix</div>
+        <div class="rw-name" id="rwName">—</div>
+        <div class="rw-place" id="rwPlace">—</div>
+        <div class="countdown" id="countdown">
+          <div><span class="cd-num" id="cd-d">00</span><span class="cd-unit">Days</span></div>
+          <div><span class="cd-num" id="cd-h">00</span><span class="cd-unit">Hrs</span></div>
+          <div><span class="cd-num" id="cd-m">00</span><span class="cd-unit">Min</span></div>
+          <div><span class="cd-num" id="cd-s">00</span><span class="cd-unit">Sec</span></div>
+        </div>
+        <div class="upcoming-list" id="upcomingList"><!-- populated by JS --></div>
+        <p class="rw-note">Dates are approximate race-day start times — always check the official F1 schedule for exact timings.</p>
+      </div>
+    </div>
+
+    <div class="scroll-cue"><span class="line"></span>Scroll</div>
+  </header>
+
+  <main>
+
+    <!-- ============ MENTALITY (pull statement) ============ -->
+    <section class="mentality" id="mentality">
+      <div class="mentality-copy">
+        <p class="eyebrow">The Mentality</p>
+        <p>The paddock's line on Fernando has barely changed in two decades: <em>relentless</em>, uncompromising, and never quite satisfied — whether he's fighting for a title or for ninth place in a car that has no business being there.</p>
+        <p class="cite">— as described by press and rivals across two decades of coverage</p>
+      </div>
+
+      <div class="mentality-cards">
+        <!-- Each ".art" box is the same reusable image-or-placeholder
+             pattern explained in the <style> block above — drop in a real photo and
+             the placeholder disappears automatically. -->
+        <div class="moment-card">
+          <div class="art">
+            <img src="Images/circuit-silverstone.avif" alt="Silverstone circuit" onerror="this.parentElement.classList.add('img-missing')">
+            <div class="art-tag">Image placeholder<span class="fname">Images/circuit-silverstone.avif</span></div>
+          </div>
+          <div class="cap">Silverstone · Home of British motorsport</div>
+        </div>
+        <div class="moment-card">
+          <div class="art">
+            <img src="Images/circuit-suzuka.avif" alt="Suzuka circuit" onerror="this.parentElement.classList.add('img-missing')">
+            <div class="art-tag">Image placeholder<span class="fname">Images/circuit-suzuka.avif</span></div>
+          </div>
+          <div class="cap">Suzuka · Where the esses never forgive</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAREER MOMENTS STRIP ============
+         #momentsStrip starts empty — the script below builds all 7 cards from
+         a data array and appends them here (see section 3 of the <script> block below). -->
+    <section class="strip-section" id="moments">
+      <p class="eyebrow">The Story</p>
+      <div class="section-head"><h2>Career Moments</h2></div>
+      <p class="section-sub">Drag or scroll through two decades, one illustrated stop at a time.</p>
+      <div class="strip-wrap">
+        <div class="strip" id="momentsStrip"><!-- populated by JS --></div>
+      </div>
+    </section>
+
+    <!-- ============ ON TRACK / OFF TRACK TABS ============
+         Only one .tab-panel is visible at a time; clicking a .tab-btn
+         (handled further down in the <script> block) swaps which one has the "active" class. -->
+    <section id="on-track">
+      <p class="eyebrow">The Record</p>
+      <div class="section-head"><h2>On Track / Off Track</h2></div>
+      <p class="section-sub">Tap a tab — the number-crunching side of his career, or the person behind the visor.</p>
+
+      <div class="tab-bar" role="tablist" aria-label="Career record">
+        <button class="tab-btn active" data-tab="track" role="tab" aria-selected="true" aria-controls="panel-track" id="tab-track">On Track</button>
+        <button class="tab-btn" data-tab="off" role="tab" aria-selected="false" aria-controls="panel-off" id="tab-off">Off Track</button>
+      </div>
+
+      <div class="tab-panel active" id="panel-track" role="tabpanel" aria-labelledby="tab-track">
+        <!-- data-count is the target number the script below counts up to. -->
+        <div class="stat-grid">
+          <div class="stat-card"><span class="stat-num" data-count="2">0</span><span class="stat-label">World titles</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="32">0</span><span class="stat-label">Grand Prix wins</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="106">0</span><span class="stat-label">Podiums</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="22">0</span><span class="stat-label">Pole positions</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="2">0</span><span class="stat-label">Le Mans wins</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="6">0</span><span class="stat-label">Teams raced for</span></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panel-off" role="tabpanel" aria-labelledby="tab-off">
+        <div class="fact-list">
+          <div class="fact-card"><h4>Home turf</h4><p>Born in Oviedo, Asturias, in northern Spain — a region he's stayed closely tied to throughout his career, including funding a kart circuit for young local drivers.</p></div>
+          <div class="fact-card"><h4>Endurance side quest</h4><p>Won the 24 Hours of Le Mans twice (2018, 2019) and a World Endurance Championship title with Toyota, squeezed in during a gap between F1 seats.</p></div>
+          <div class="fact-card"><h4>Triple Crown chase</h4><p>Entered the Indianapolis 500 in 2017, part of a long-shot bid at motorsport's unofficial Triple Crown alongside Monaco and Le Mans.</p></div>
+          <div class="fact-card"><h4>Lifestyle brand</h4><p>Runs Kimoa, a beachwear and lifestyle label he founded, extending his identity well beyond the cockpit.</p></div>
+        </div>
+
+        <!-- The "Next fact" button and #trivia-text are wired up in the
+             "Fun fact generator" section of the <script> block below. -->
+        <div class="generator">
+          <p class="eyebrow">Fun Fact Generator</p>
+          <p id="trivia-text">Tap the button for a fact worth repeating in the group chat.</p>
+          <button type="button" class="btn-lime" id="trivia-btn">Next fact →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HELMET HALL OF FAME ============
+         #helmetStrip and #helmetDetail start mostly empty; the script below
+         builds each helmet "chip" and fills in the detail panel. -->
+    <section id="helmets">
+      <p class="eyebrow">Signature</p>
+      <div class="section-head"><h2>Helmet Hall of Fame</h2></div>
+      <p class="section-sub">Photos of the liveries he's raced under. Tap one to read the story.</p>
+      <div class="helmet-strip" id="helmetStrip"><!-- populated by JS --></div>
+      <div class="helmet-detail" id="helmetDetail">
+        <h3>Pick a helmet</h3>
+        <p class="yrs">Tap a chip above</p>
+        <p>Each chip is an image slot for a livery era, ordered left to right by year.</p>
+      </div>
+    </section>
+
+    <!-- ============ CIRCUIT GALLERY ============
+         Same pattern as the helmets above, built by the script below. -->
+    <section id="circuits">
+      <p class="eyebrow">The Battlegrounds</p>
+      <div class="section-head"><h2>Circuits That Made Him</h2></div>
+      <p class="section-sub">Track maps of the corners tied to his biggest moments. Tap a layout to read why it matters.</p>
+      <div class="circuit-grid" id="circuitGrid"><!-- populated by JS --></div>
+      <div class="circuit-detail" id="circuitDetail">
+        <h3>Pick a circuit</h3>
+        <p class="yrs">Tap a track map above</p>
+        <p>Each card is an image slot for a circuit layout — drop in a track map you have the rights to use.</p>
+      </div>
+    </section>
+
+    <!-- ============ CHAMPION BANNER ============
+         A plain, static strip — no JS or image needed. -->
+    <div class="champion-banner">
+      <h2>2× Formula 1<br>World Champion</h2>
+      <p>2005 and 2006 — the two seasons that made him, at the time, the youngest double champion the sport had ever seen.</p>
+    </div>
+
+    <!-- ============ LIGHTS OUT REACTION GAME ============
+         The 5 bulbs, button, and result text are all controlled by the
+         "Lights Out reaction game" section of the <script> block below. -->
+    <section id="play">
+      <p class="eyebrow">The Challenge</p>
+      <div class="section-head"><h2>Lights Out</h2></div>
+      <p class="section-sub">Five red lights, then darkness, then go. Click the instant they go out — jump early and it doesn't count.</p>
+      <div class="light-rig" id="lightRig" aria-hidden="true">
+        <div class="light-bulb"></div><div class="light-bulb"></div><div class="light-bulb"></div>
+        <div class="light-bulb"></div><div class="light-bulb"></div>
+      </div>
+      <button type="button" id="reaction-btn">Start the sequence</button>
+      <!-- aria-live="polite" makes screen readers announce the result
+           automatically once it appears, without needing focus moved. -->
+      <p id="reaction-result" aria-live="polite"></p>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-top">
+      <h3 class="footer-tagline">Still chasing the perfect lap.</h3>
+      <div class="social-row" aria-label="Fernando Alonso on social media">
+        <a href="https://www.instagram.com/fernandoalo_oficial/?hl=en" aria-label="Instagram">IG</a>
+        <a href="https://www.tiktok.com/@fernandoalonso?lang=en" aria-label="TikTok">TT</a>
+        <a href="https://www.youtube.com/channel/UCwvrVuFiKDuZl1AUM-pTKKA" aria-label="YouTube">YT</a>
+      </div>
+    </div>
+    <div class="partner-strip">
+      <span>Aston Martin Aramco F1 Team</span>
+      <span>Car #14</span>
+      <span>Since 2001</span>
+      <span>Oviedo, Asturias</span>
+    </div>
+    <div class="footer-bottom">
+      <p>Unofficial fan tribute page — not affiliated with Fernando Alonso, Aston Martin, or Formula 1. Photos are placeholders for images you supply yourself; layout inspired by modern athlete hub sites. Stats current as of the 2026 season.</p>
+      <p>Made by a fan, for fans.</p>
+    </div>
+  </footer>
+
+  <!-- All JavaScript lives here in one <script> block, placed at the
+       very end of <body> so the HTML above it has already been parsed
+       and is ready to be selected with document.getElementById() etc. -->
+  <script>
+/* =========================================================================
+   SCRIPT.JS — all the interactive behavior for the fan page.
+
+   HOW THIS FILE IS ORGANISED (top to bottom), each wrapped in its own
+   labeled block so you can find and study one feature at a time:
+     1. Mobile nav toggle       - opens/closes the hamburger menu
+     2. Upcoming Grands Prix    - fills in and counts down to the next race
+     3. Career moments strip    - builds the scrolling timeline cards
+     4. Drag-to-scroll          - lets you click-and-drag the strip on desktop
+     5. On Track / Off Track tabs - switches between the two tab panels
+     6. Stat count-up animation - makes the numbers count up when visible
+     7. Fun fact generator      - shows a random fact on button click
+     8. Helmet Hall of Fame     - builds the helmet picker + detail panel
+     9. Circuit gallery         - builds the circuit picker + detail panel
+    10. Lights Out reaction game - the click-when-the-lights-go-out game
+
+   Everything lives inside one big function that runs immediately —
+   see the "IIFE" note right below — so none of these variables leak
+   out and accidentally clash with some other script on the page.
+   ========================================================================= */
+
+(function () {
+  "use strict";
+  // "use strict" turns on a few extra error checks in the JS engine —
+  // e.g. it stops you from accidentally creating a global variable by
+  // forgetting the word "var"/"let"/"const". Good habit to always include.
+
+  // The (function(){ ... })() wrapper around this whole file is called
+  // an "IIFE" — an Immediately Invoked Function Expression. Writing a
+  // function and then calling it with () at the very end means the code
+  // inside runs once, right away, but all the variables declared inside
+  // stay private to this file instead of becoming global variables.
+
+
+  /* ====================================================================
+     1. MOBILE NAV TOGLE
+     Clicking the hamburger button adds/removes a class on the <nav>
+     element. The CSS (see .nav-open rules in the <style> block above) is what
+     actually makes the menu slide open — this code just flips the
+     class and updates the accessibility attributes to match.
+     ==================================================================== */
+  var siteNav = document.getElementById('siteNav');
+  var navToggle = document.getElementById('navToggle');
+
+  navToggle.addEventListener('click', function () {
+    // classList.toggle() adds the class if it's missing, or removes it
+    // if it's already there, and returns true/false to tell you which
+    // happened — handy for keeping a boolean "isOpen" in sync.
+    var isOpen = siteNav.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  });
+
+  // If someone taps a link inside the open mobile menu, close the menu
+  // afterwards so it doesn't stay open over the section they jumped to.
+  document.getElementById('navLinks').addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      siteNav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
+    }
+  });
+
+
+  /* ====================================================================
+     2. UPCOMING GRANDS PRIX
+     A plain array of race objects acts as this section's "data". Two
+     functions read from it: one fills in the HTML, the other ticks the
+     countdown clock every second.
+
+     Race-day dates/times below are approximate — update this list as
+     the season progresses.
+     ==================================================================== */
+  var upcomingRaces = [
+    { name: 'Italian Grand Prix',       place: 'Monza, Italy',          date: '2026-09-06T13:00:00Z' },
+    { name: 'Spanish Grand Prix',       place: 'Madrid, Spain',         date: '2026-09-13T13:00:00Z' },
+    { name: 'Azerbaijan Grand Prix',    place: 'Baku, Azerbaijan',      date: '2026-09-26T11:00:00Z' },
+    { name: 'Singapore Grand Prix',     place: 'Marina Bay, Singapore', date: '2026-10-11T12:00:00Z' },
+    { name: 'United States Grand Prix', place: 'Austin, USA',           date: '2026-10-25T19:00:00Z' },
+    { name: 'Mexico City Grand Prix',   place: 'Mexico City, Mexico',   date: '2026-11-01T19:00:00Z' }
+  ];
+
+  var rwName = document.getElementById('rwName');
+  var rwPlace = document.getElementById('rwPlace');
+  var upcomingList = document.getElementById('upcomingList');
+  var nextRace = null; // will hold whichever race is soonest, once known
+
+  // Figures out which race is next and re-draws the "Next Grand Prix"
+  // box and the small list of races after it.
+  function renderSchedule() {
+    var now = Date.now(); // current time in milliseconds
+    // .filter() keeps only the races whose date hasn't happened yet
+    var future = upcomingRaces.filter(function (r) {
+      return new Date(r.date).getTime() > now;
+    });
+
+    if (future.length === 0) {
+      // Every race in the list has already happened
+      rwName.textContent = 'Season in progress';
+      rwPlace.textContent = 'Check the official F1 calendar';
+      document.getElementById('countdown').style.display = 'none';
+      upcomingList.innerHTML = '';
+      return;
+    }
+
+    nextRace = future[0]; // the soonest upcoming race
+    rwName.textContent = nextRace.name;
+    rwPlace.textContent = nextRace.place;
+
+    // Take up to 4 races after the next one, and turn each into a
+    // small row of HTML using .map() (which returns a new array of
+    // HTML strings) followed by .join('') (which glues them together
+    // into one single string).
+    var rest = future.slice(1, 5);
+    upcomingList.innerHTML = rest.map(function (r) {
+      var d = new Date(r.date);
+      var dateLabel = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      return '<div class="upcoming-row">' +
+        '<span class="ur-date">' + dateLabel + '</span>' +
+        '<span class="ur-name">' + r.name + '</span>' +
+        '<span class="ur-place">' + r.place.split(',')[0] + '</span>' +
+        '</div>';
+    }).join('');
+  }
+
+  // Runs once per second (see setInterval below) to update the
+  // Days / Hours / Minutes / Seconds numbers.
+  function tickCountdown() {
+    if (!nextRace) return;
+    var diff = new Date(nextRace.date).getTime() - Date.now(); // ms remaining
+    var d, h, m, s;
+
+    if (diff <= 0) {
+      // The race we were counting down to just started — recalculate
+      // which race is next.
+      renderSchedule();
+      return;
+    }
+
+    // Converting milliseconds into days/hours/minutes/seconds:
+    // 86,400,000 ms in a day, 3,600,000 ms in an hour, 60,000 ms in a minute.
+    d = Math.floor(diff / 86400000);
+    h = Math.floor((diff % 86400000) / 3600000);
+    m = Math.floor((diff % 3600000) / 60000);
+    s = Math.floor((diff % 60000) / 1000);
+
+    // padStart(2,'0') turns "9" into "09" so the display stays 2 digits.
+    document.getElementById('cd-d').textContent = String(d).padStart(2, '0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+  }
+
+  renderSchedule();          // fill in the widget immediately on page load
+  tickCountdown();           // show correct numbers straight away too
+  setInterval(tickCountdown, 1000); // ...then refresh every second after that
+
+
+  /* ====================================================================
+     3. CAREER MOMENTS STRIP
+     Rather than hand-writing 7 nearly-identical HTML cards, we keep the
+     content as an array of plain objects and generate the HTML for
+     each one in a loop. This is a very common pattern: separate your
+     "data" from your "template" so adding a new card later is a
+     one-line change instead of copy-pasting a whole block of HTML.
+     ==================================================================== */
+  var moments = [
+    { yr: '2001',    title: 'F1 debut, Minardi',        img: 'Images/moment-2001-debut.avif' },
+    { yr: '2005–06', title: 'Back-to-back titles',      img: 'Images/moment-2005-06-titles.avif' },
+    { yr: '2008',    title: 'Singapore win',            img: 'Images/moment-2008-singapore.avif' },
+    { yr: '2012',    title: 'Ferrari runner-up',        img: 'Images/moment-2012-ferrari.avif' },
+    { yr: '2018–19', title: 'Le Mans, back to back',    img: 'Images/moment-2018-19-lemans.jpg' },
+    { yr: '2021',    title: 'The comeback, Alpine',     img: 'Images/moment-2021-alpine.avif' },
+    { yr: '2026',    title: '400th Grand Prix start',   img: 'Images/moment-2026-400th.jpg' }
+  ];
+
+  var stripEl = document.getElementById('momentsStrip');
+
+  moments.forEach(function (m) {
+    var card = document.createElement('div'); // build the element in memory first...
+    card.className = 'strip-card';
+    card.innerHTML =
+      '<div class="art">' +
+      // The onerror handler below runs automatically if the image file
+      // can't be found, adding "img-missing" so the CSS placeholder
+      // shows instead of a broken-image icon.
+      '<img src="' + m.img + '" alt="' + m.title + '" onerror="this.parentElement.classList.add(\'img-missing\')">' +
+      '<div class="art-tag">Image placeholder<span class="fname">' + m.img + '</span></div>' +
+      '</div>' +
+      '<div class="cap"><div class="yr">' + m.yr + '</div><div class="ti">' + m.title + '</div></div>';
+    stripEl.appendChild(card); // ...then insert it into the page
+  });
+
+
+  /* ====================================================================
+     4. DRAG-TO-SCROLL FOR THE MOMENTS STRIP
+     On a touchscreen you can already swipe the strip. On desktop there's
+     no touch to swipe with, so this recreates that feel with the mouse:
+     press down, and dragging left/right scrolls the strip.
+     Wrapped in its own tiny IIFE just to keep "isDown"/"startX"/etc.
+     from cluttering the outer scope.
+     ==================================================================== */
+  (function () {
+    var el = stripEl;
+    var isDown = false;   // is the mouse button currently held down?
+    var startX = 0;       // mouse x-position when the drag started
+    var scrollLeft = 0;   // how far the strip had already been scrolled
+
+    el.addEventListener('mousedown', function (e) {
+      isDown = true;
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    });
+
+    // Listening on "window" (not just the strip) means the drag still
+    // ends correctly even if the mouse is released outside the strip.
+    window.addEventListener('mouseup', function () { isDown = false; });
+    el.addEventListener('mouseleave', function () { isDown = false; });
+
+    el.addEventListener('mousemove', function (e) {
+      if (!isDown) return; // ignore mouse movement when not dragging
+      e.preventDefault();
+      var x = e.pageX - el.offsetLeft;
+      // 1.4 makes the drag feel slightly faster than the raw mouse
+      // movement, which feels more natural for this kind of gesture.
+      el.scrollLeft = scrollLeft - (x - startX) * 1.4;
+    });
+  })();
+
+
+  /* ====================================================================
+     5. ON TRACK / OFF TRACK TABS
+     Standard "tabs" pattern: clicking a tab button removes "active"
+     from every button/panel, then adds it back to just the one that
+     was clicked (and its matching panel, matched up via the
+     "data-tab" attribute in the HTML).
+     ==================================================================== */
+  var tabBtns = document.querySelectorAll('.tab-btn');
+
+  tabBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      // Reset every tab button and panel first...
+      tabBtns.forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.remove('active');
+      });
+
+      // ...then activate only the one that was clicked.
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      // btn.dataset.tab reads the HTML attribute data-tab="track" (or "off")
+      // so "panel-track" / "panel-off" is built from it automatically.
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+
+  /* ====================================================================
+     6. STAT COUNT-UP ANIMATION (On Track tab)
+     Animates each stat number counting up from 0 to its target value
+     using requestAnimationFrame — the browser's built-in way to run
+     code right before it paints the next frame, which gives much
+     smoother animation than something like setInterval.
+     ==================================================================== */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var counted = false; // makes sure the count-up only ever plays once
+
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+
+    // Respect the same "reduce motion" preference used in the CSS —
+    // just show the final number instantly instead of animating it.
+    if (reduceMotion) { el.textContent = target; return; }
+
+    var duration = 900; // milliseconds the whole count-up should take
+    var startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1); // 0 → 1
+      el.textContent = Math.floor(progress * target);
+      if (progress < 1) {
+        requestAnimationFrame(step); // schedule the next frame
+      } else {
+        el.textContent = target; // avoid any rounding-down on the last frame
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Trigger it the first time someone clicks the "On Track" tab...
+  document.querySelector('[data-tab="track"]').addEventListener('click', function () {
+    if (counted) return;
+    counted = true;
+    document.querySelectorAll('#panel-track .stat-num').forEach(animateCount);
+  });
+
+  // ...or the first time it scrolls into view, whichever happens first.
+  // IntersectionObserver watches an element and fires a callback when
+  // it enters/leaves the visible viewport — much more efficient than
+  // manually checking scroll position yourself.
+  if ('IntersectionObserver' in window) {
+    var trackObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !counted) {
+          counted = true;
+          document.querySelectorAll('#panel-track .stat-num').forEach(animateCount);
+          trackObs.disconnect(); // job done, stop watching
+        }
+      });
+    }, { threshold: 0.5 }); // fire once 50% of the element is visible
+    trackObs.observe(document.getElementById('panel-track'));
+  }
+
+
+  /* ====================================================================
+     7. FUN FACT GENERATOR
+     Picks a random fact from the array each time the button is
+     clicked, avoiding repeats until every fact has been shown once.
+     ==================================================================== */
+  var facts = [
+    "Alonso's car number, 14, has been his since the numbers-for-life rule began in 2014 — he simply chose it as his lucky number.",
+    "He once complained over team radio that his engine had the power of a much slower junior-category car — a line so widely repeated it became one of the most quoted radio messages in F1 history.",
+    "Alonso won the 24 Hours of Le Mans in both 2018 and 2019 with Toyota, and took the World Endurance Championship title in the same period.",
+    "At the 2006 Japanese Grand Prix, Michael Schumacher's title hopes ended with an engine failure while leading — handing Alonso a win that helped seal his second championship days later.",
+    "He raced the Indianapolis 500 in 2017, chasing motorsport's unofficial Triple Crown, and led laps before his engine failed late in the race.",
+    "In 2026 Alonso became the first driver in Formula 1 history to start 400 Grand Prix races.",
+    "Before F1, a teenage Alonso won the 1999 Euro Open by Nissan title, an early sign of the competitiveness that would define his career.",
+    "Alonso has been famously blunt about his own confidence, once rating his own overall ability as a 9 out of 10 — 'in everything' — with a straight face."
+  ];
+
+  var used = []; // indexes of facts already shown, since "used" was last cleared
+  var triviaText = document.getElementById('trivia-text');
+
+  document.getElementById('trivia-btn').addEventListener('click', function () {
+    // Once every fact has been shown, start the "no repeats" cycle over.
+    if (used.length === facts.length) used = [];
+
+    // Build a list of indexes NOT yet used...
+    var remaining = facts
+      .map(function (_, i) { return i; })                 // [0,1,2,3,...]
+      .filter(function (i) { return used.indexOf(i) === -1; }); // drop used ones
+
+    // ...then pick one of those remaining indexes at random.
+    var pick = remaining[Math.floor(Math.random() * remaining.length)];
+    used.push(pick);
+
+    // Fade the old text out, swap it, then fade back in — done by
+    // toggling the ".fade" CSS class and using setTimeout to wait for
+    // the fade-out transition (180ms) to finish first.
+    triviaText.classList.add('fade');
+    setTimeout(function () {
+      triviaText.textContent = facts[pick];
+      triviaText.classList.remove('fade');
+    }, 180);
+  });
+
+
+  /* ====================================================================
+     8. HELMET HALL OF FAME
+     Same "data array + loop" pattern as the moments strip, but each
+     chip is also clickable and updates a separate "detail" panel with
+     more text about whichever helmet was selected.
+
+     To use real photos: drop image files (named to match "file" below)
+     next to index.html. Until then, each chip's onerror handler shows
+     a small placeholder with the expected filename instead.
+     ==================================================================== */
+  var helmets = [
+    { years: '2001',    name: 'Minardi debut',            a: '#0c0e10', b: '#f0c419', file: 'Images/helmet-minardi.jpg',
+      text: 'A minimal black-and-yellow lid for a rookie season in an uncompetitive car — but the raw pace was already obvious to anyone watching closely.' },
+    { years: '2005–06', name: 'Championship sunburst',    a: '#f4d000', b: '#1c3f94', file: 'Images/helmet-championship.jpg',
+      text: 'The design most associated with Alonso: a radiating sunburst pattern nodding to the Asturian flag, worn through both title-winning seasons.' },
+    { years: '2010–14', name: 'Ferrari red',              a: '#d40000', b: '#f2c400', file: 'Images/helmet-ferrari.jpg',
+      text: 'Five seasons in Scuderia red, refined year over year but always keeping the sunburst motif at its core.' },
+    { years: '2015–18', name: 'McLaren chrome',           a: '#c9ccd1', b: '#ff8000', file: 'Images/helmet-mclaren.jpg',
+      text: 'A sleeker, more metallic take worn through a difficult but character-building second McLaren spell.' },
+    { years: '2021–22', name: 'Alpine blue',              a: '#0090ff', b: '#ff2fa0', file: 'Images/helmet-alpine.jpg',
+      text: 'Bright blue and pink for the comeback seasons — a fresh look to match a fresh chapter of the career.' },
+    { years: '2023–',   name: 'Aston green',              a: '#00443a', b: '#c6ff5e', file: 'Images/helmet-aston.jpg',
+      text: 'Deep racing green with a lime flash, worn into his forties as he continues to out-qualify drivers half his age.' }
+  ];
+
+  var hStrip = document.getElementById('helmetStrip');
+  var hDetail = document.getElementById('helmetDetail');
+
+  helmets.forEach(function (h, i) {
+    var chip = document.createElement('div');
+    chip.className = 'helmet-chip';
+    // tabIndex + role="button" make this plain <div> reachable and
+    // usable with a keyboard, since it isn't a real <button> element.
+    chip.tabIndex = 0;
+    chip.setAttribute('role', 'button');
+    chip.setAttribute('aria-label', h.name + ', ' + h.years);
+    chip.innerHTML =
+      '<img src="' + h.file + '" alt="' + h.name + ' helmet" onerror="this.parentElement.classList.add(\'img-missing\')">' +
+      '<div class="chip-tag">' + h.years + '<span class="fname">' + h.file + '</span></div>';
+
+    // Defined once per chip so both the click and keyboard handlers
+    // below can reuse the exact same "select this helmet" logic.
+    function select() {
+      document.querySelectorAll('.helmet-chip').forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      hDetail.style.borderLeftColor = h.b;
+      hDetail.innerHTML = '<h3>' + h.name + '</h3><p class="yrs">' + h.years + '</p><p>' + h.text + '</p>';
+    }
+
+    chip.addEventListener('click', select);
+    // Since a <div> doesn't respond to Enter/Space like a real button
+    // would, this listens for those keys manually so keyboard users
+    // can select a chip too.
+    chip.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        select();
+      }
+    });
+
+    hStrip.appendChild(chip);
+    if (i === 1) select(); // default to the championship helmet on page load
+  });
+
+
+  /* ====================================================================
+     9. CIRCUIT GALLERY
+     Same pattern again: data array → generated cards → click updates a
+     shared detail panel below the grid.
+     ==================================================================== */
+  var circuits = [
+    { name: 'Silverstone', country: 'United Kingdom', accent: '#c6ff5e', file: 'Images/circuit-silverstone.avif',
+      text: "Home of British motorsport and the paddock Alonso has raced at since 2001. Its fast, flowing corners reward the kind of committed, precise driving he's built his reputation on." },
+    { name: 'Circuit de Monaco', country: 'Monaco', accent: '#f2c400', file: 'Images/circuit-monaco.avif',
+      text: "Tight, unforgiving, and part of motorsport's unofficial Triple Crown alongside Le Mans and the Indy 500 — the last of which Alonso chased in 2017 to complete the set." },
+    { name: 'Suzuka', country: 'Japan', accent: '#ff8000', file: 'Images/circuit-suzuka.avif',
+      text: "The only figure-eight circuit on the calendar, and the site of a famous 2006 twist: Michael Schumacher's engine failed while leading, clearing the way for Alonso's second title bid." },
+    { name: 'Spa-Francorchamps', country: 'Belgium', accent: '#1c3f94', file: 'Images/circuit-spa.avif',
+      text: "Long, elevation-heavy, and built around the uphill Eau Rouge–Raidillon esses — a circuit where raw car confidence matters as much as driver skill." }
+  ];
+
+  var circuitGrid = document.getElementById('circuitGrid');
+  var circuitDetail = document.getElementById('circuitDetail');
+
+  circuits.forEach(function (c, i) {
+    var card = document.createElement('button'); // a real <button>, so no manual keyboard handling needed
+    card.type = 'button'; // stops it from ever behaving like a form-submit button
+    card.className = 'circuit-card';
+    card.innerHTML =
+      '<div class="art">' +
+      '<img src="' + c.file + '" alt="' + c.name + ' circuit" onerror="this.parentElement.classList.add(\'img-missing\')">' +
+      '<div class="art-tag">Image placeholder<span class="fname">' + c.file + '</span></div>' +
+      '</div>' +
+      '<div class="cc-label"><span class="cc-name">' + c.name + '</span><span class="cc-country">' + c.country + '</span></div>';
+
+    card.addEventListener('click', function () {
+      document.querySelectorAll('.circuit-card').forEach(function (el) { el.classList.remove('active'); });
+      card.classList.add('active');
+      circuitDetail.style.borderLeftColor = c.accent;
+      circuitDetail.innerHTML = '<h3>' + c.name + '</h3><p class="yrs">' + c.country + '</p><p>' + c.text + '</p>';
+    });
+
+    circuitGrid.appendChild(card);
+    if (i === 2) card.click(); // default to Suzuka on page load (simulates a real click)
+  });
+
+
+  /* ====================================================================
+     10. LIGHTS OUT REACTION GAME
+     Mimics an F1 start: 5 lights turn on one by one, pause randomly,
+     then all switch off — the player has to click the instant that
+     happens. A simple state machine ('idle' / 'lighting' / 'ready')
+     keeps track of what should happen on the next click.
+     ==================================================================== */
+  var bulbs = document.querySelectorAll('.light-bulb');
+  var reactBtn = document.getElementById('reaction-btn');
+  var resultEl = document.getElementById('reaction-result');
+
+  var state = 'idle';   // one of: 'idle', 'lighting', 'ready'
+  var litTime = null;   // performance.now() timestamp of the moment lights went out
+  var timers = [];      // keeps every setTimeout id so they can all be cancelled at once
+
+  function clearTimers() {
+    timers.forEach(clearTimeout);
+    timers = [];
+  }
+  function resetLights() {
+    bulbs.forEach(function (b) { b.classList.remove('on'); });
+  }
+
+  // Kicks off one full "light sequence": lights come on one at a time,
+  // then after a random pause they all switch off and the state
+  // becomes 'ready' for the player to react to.
+  function startSequence() {
+    clearTimers();
+    resetLights();
+    resultEl.innerHTML = '';
+    state = 'lighting';
+    reactBtn.textContent = 'Wait for it…';
+
+    // Turn on one bulb every 600ms — bulb[0] at 600ms, bulb[1] at
+    // 1200ms, and so on.
+    bulbs.forEach(function (bulb, i) {
+      timers.push(setTimeout(function () { bulb.classList.add('on'); }, 600 * (i + 1)));
+    });
+
+    var allLitDelay = 600 * bulbs.length;       // time until the last bulb turns on
+    var randomHold = 1000 + Math.random() * 2200; // then wait 1–3.2s more, randomly
+
+    timers.push(setTimeout(function () {
+      state = 'ready';
+      resetLights();
+      // performance.now() gives a high-precision timestamp, better
+      // suited to measuring short reaction times than Date.now().
+      litTime = performance.now();
+      reactBtn.textContent = 'GO — click now!';
+    }, allLitDelay + randomHold));
+  }
+
+  reactBtn.addEventListener('click', function () {
+    if (state === 'idle') {
+      // First click: just start the sequence.
+      startSequence();
+      return;
+    }
+    if (state === 'lighting') {
+      // Clicked too early, while lights are still coming on — false start.
+      clearTimers();
+      resetLights();
+      state = 'idle';
+      reactBtn.textContent = 'Start the sequence';
+      resultEl.innerHTML = 'False start — even Alonso gets a penalty for that. Try again.';
+      return;
+    }
+    if (state === 'ready') {
+      // This is the "real" reaction click — measure and report the time.
+      var ms = Math.round(performance.now() - litTime);
+      state = 'idle';
+      reactBtn.textContent = 'Go again';
+
+      var verdict;
+      if (ms < 180) verdict = "Faster than most F1 drivers off the line. Suspiciously fast, actually.";
+      else if (ms < 250) verdict = "That's genuine grid-walk reflexes. Front row material.";
+      else if (ms < 400) verdict = "Solid. You'd hold your own in a midfield battle.";
+      else verdict = "Somewhere near the back of the grid on this one.";
+
+      resultEl.innerHTML = 'Your reaction: <span class="big">' + ms + ' ms</span><br>' + verdict;
+    }
+  });
+
+})();
+
+  </script>
+</body>
+</html>
