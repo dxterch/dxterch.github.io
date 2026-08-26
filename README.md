@@ -1,16 +1,31 @@
-## Hi there 👋
+# Fernando Alonso — Fanpage
 
-<!--
-**dxterch/dxterch** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+An unofficial fanpage for Formula 1 driver Fernando Alonso, built with plain HTML, CSS, and JavaScript (no frameworks or libraries).
 
-Here are some ideas to get you started:
+🔗 **Live site:** https://dxterch.github.io/fanpage.html
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Features
+
+- Animated hero section with a live countdown to the next Grand Prix
+- Scrollable career moments timeline
+- "On Track / Off Track" tabbed stats and fun facts, with a random fact generator
+- Interactive Helmet Hall of Fame and circuit gallery
+- A "Lights Out" reaction-time mini game
+- Fully responsive layout with a mobile nav menu
+
+## Project structure
+
+```
+fanpage.html    → the entire website (HTML, CSS, and JS all in one file)
+Images/         → all photos and graphics used on the page
+```
+
+## Built with
+
+- HTML5
+- CSS3 (custom properties, flexbox, grid)
+- Vanilla JavaScript (no frameworks or libraries)
+
+## Disclaimer
+
+This is an unofficial fan-made page, not affiliated with Fernando Alonso, Aston Martin, or Formula 1. Built for educational purposes.
