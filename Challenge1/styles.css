@@ -1,0 +1,123 @@
+/* styles.css - Challenge #1 (Skeleton) */
+
+/* Centers main content and caps its width so text/lines do not stretch too wide on large screens */
+.container {
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Sets page's overall background color */
+body {
+    background-color: lightcyan;
+}
+
+/* Styles main heading and aligns the text to the center */
+h1 {
+    font-size: 50px;
+    color: darkred;
+    text-align: center;
+}
+
+/* Adds left spacing to subheading */
+h2 {
+    padding-left: 15px;
+}
+
+/* Adds left and right spacing to paragraphs */
+p {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Styles tagline undermain heading */
+.tagline {
+    text-align: center;
+    font-style: italic;
+    color: grey;
+}
+
+/* Uses flexbox to center its content, has a border with rounded corners and is centered */
+.hero {
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 200px;
+    margin: auto;
+    display: flex;
+    background-color: white;
+}
+
+/* Sets fixed height for mascot image */
+#mascot-image {
+    height: 200px;
+}
+
+/* Adds line spacing */
+.about {
+    line-height: 1.5;
+}
+
+/* Container for the 2 buttons using flexbox */
+.actions {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Buy Tickets button */
+.buy-tickets {
+    background-color: green;
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 4px 2px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px 2px lightblue;
+}
+
+/* Make a Donation button */
+.make-donation {
+    background-color: blue;
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px 2px hotpink;
+}
+
+/* Darkens "Buy Tickets" button and shows a cursor on hover (with darker background) */
+.buy-tickets:hover {
+    background-color: darkgreen;
+    cursor: pointer;
+}
+
+/* Darkens "Make a Donation" button and shows a cursor on hover (with darker background) */
+.make-donation:hover {
+    background-color: darkblue;
+    cursor: pointer;
+}
+
+/* Footer styling */
+.site-footer {
+    border-top: 1px solid darkgrey;
+    text-align: center;
+    padding-top: 10px;
+    color: darkgrey;
+}
+
+/* On small screens, stack the action buttons vertically instead of side by side*/
+@media (max-width: 480px) {
+    .actions {
+        flex-direction: column;
+    }
+}
