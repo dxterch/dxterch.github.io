@@ -91,6 +91,21 @@ section[id] {
     padding: 5px 5px 5px 5px
 }
 
+#warning {
+    color: red;
+    border: 1px dotted red;
+    box-shadow: 0 4px 12px red;
+}
+
+/* Apply the animation to the specific class */
+.warning-card {
+  /* softPulse = animation name */
+  /* 2s = duration */
+  /* ease-in-out = timing function */
+  /* infinite = loop forever */
+  animation: softPulse 2s ease-in-out infinite;
+}
+
 .card {
     text-align: center;
     padding: 1.5rem;
@@ -161,7 +176,8 @@ section[id] {
 .sg-map {
     display: block;
     width: 100%;
-    height: auto;
+    max-height: 750px;
+
 }
 
 .marker {
@@ -279,6 +295,11 @@ section[id] {
     background-color: lightblue;
 }
 
+.learning-table tr.completed-dates {
+    background-color: lightgray;
+    color: black;
+}
+
 .learning-table tr.important-dates {
     background-color: lightgoldenrodyellow;
     color: red;
@@ -366,12 +387,8 @@ section[id] {
     color: darkgray;
 }
 
-#about.card {
-    flex: 1 1 350px;
-}
-
-#travel-dest.card {
-    flex: 2 1 500px;
+#about.card, #travel-dest.card {
+    flex: 2 1 400px;
 }
 
 @keyframes gentleRock {
@@ -390,4 +407,20 @@ section[id] {
     100% {
         transform: rotate(0deg);
     }
+}
+
+@keyframes softPulse {
+  0% {
+    box-shadow: 0 4px 12px gray; /* Matches default card style */
+    border-color: lightgray;
+  }
+  50% {
+    /* Slightly intense shadow and orange warning color */
+    box-shadow: 0 4px 20px red; 
+    border-color: red;
+  }
+  100% {
+    box-shadow: 0 4px 12px gray;
+    border-color: lightgray;
+  }
 }
