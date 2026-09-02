@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dexter Chua - Personal Website</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Dexter's Personal Website | Version 1</div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#location">Location</a></li>
+          <li><a href="#learning">Learning Log</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <p id="mini-details" class="mini-details">
+        [IS216] Web Application Development II (WAD2) | For Learning Purposes Only | 
+    </header>
+
+    <main>
+      <div class="intro-row">
+        <section id="about" class="card">
+          <img class="personal-pic" src="Images/cat.jpg" alt="My Picture" />
+          <h2>About Me</h2>
+          <p>
+            Hello, my name is Dexter, a Year 2 Information Systems student at Singapore Management
+            University (SMU), living in Woodlands. For this module (IS216 Web Application Development II),
+            where I'm learning how to build and style web pages using HTML and CSS, so far. 
+          </p>
+          <p>
+            I'm hoping
+            to get better at designing somewhat clean, polished pages, as lessons progresses. Outside of coding,
+            Switzerland tops my travel bucket list. This page would be updated as time progresses as well.
+          </p>
+        </section>
+        <section id="travel-dest" class="card">
+          <h2>My (Ideal) Favorite Travel Destination</h2>
+          <h3>Country: Switzerland</h3>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/CvrSoObs5jo?autoplay=1&mute=1"
+              title="Discover Switzerland | Switzerland Tourism"
+              frameborder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                mute;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        </section>
+      </div>
+
+      <div class="row-full">
+        <section id="location" class="card map-section">
+          <div class="map-wrapper">
+            <img
+              class="sg-map"
+              src="Images/singapore-map.avif"
+              alt="Singapore Map"
+            />
+
+            <button class="marker" id="marker-home" aria-label="Woodlands">
+              <span class="tooltip">Home: Woodlands</span>
+            </button>
+
+            <button class="marker" id="marker-school" aria-label="Singapure Management University (SMU)">
+              <span class="tooltip">School: Singapore Management University (SMU)</span>
+            </button>
+
+            <aside class="legend">
+              <h3>Legend</h3>
+              <ul>
+                <li><span class="dot home"></span> Home</li>
+                <li><span class="dot school"></span> School</li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <div class="row-full">
+        <section id="learning" class="card">
+          <h2>What I'm Learning in WAD2 so far</h2>
+          <table id="learning-table" class="learning-table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Lesson Date</th>
+                <th>Topic</th>
+                <th>What I Built / Learned</th>
+                <th>Remarks</th>
+                <th>Assessments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>20/08/2026</td>
+                <td>Course Intro, HTML Recap, GitHub Pages</td>
+                <td>
+                  Set up my GitHub Pages site and pushed my first webpage
+                  (fanpage.html)
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>27/08/2026</td>
+                <td>CSS Part 1 (Vanilla CSS)</td>
+                <td>
+                  Learning about Vanilla CSS and Creating my own personal
+                  webpage (index.html)
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>03/09/2026</td>
+                <td>CSS Part 2 (Bootstrap)</td>
+                <td></td>
+                <td>Project Briefing</td>
+                <td></td>
+              </tr>
+              <tr class="important-dates">
+                <td>4</td>
+                <td>10/09/2026</td>
+                <td>Vue Part 1 (Basics)</td>
+                <td></td>
+                <td></td>
+                <td>Quiz 1</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>17/09/2026</td>
+                <td>Vue Part 2 (Event Handling)</td>
+                <td></td>
+                <td>JSON, Asynchronous Calls (Axios, APIs)</td>
+                <td></td>
+              </tr>
+              <tr class="important-dates">
+                <td>6</td>
+                <td>24/09/2026</td>
+                <td>Vue Part 3 (Components)</td>
+                <td></td>
+                <td></td>
+                <td>Quiz 2</td>
+              </tr>
+              <tr class="important-dates">
+                <td>7</td>
+                <td>01/10/2026</td>
+                <td>Trial Lab Test</td>
+                <td></td>
+                <td>
+                  Project Proposal Completion (Google Doc) by 02/10/2026 @
+                  2359hrs
+                </td>
+                <td>Lab Test: 02/10/2026</td>
+              </tr>
+              <tr class="chill-dates">
+                <td>8</td>
+                <td>Recess Week</td>
+                <td>No Lesson</td>
+                <td>Recess Week</td>
+                <td>Recess Week</td>
+                <td>Recess Week</td>
+              </tr>
+              <tr class="important-dates">
+                <td>9</td>
+                <td></td>
+                <td>Project - Progress Evaluation</td>
+                <td></td>
+                <td></td>
+                <td>7-min Presentation + ~5-min Q&A</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td></td>
+                <td>Testing</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="important-dates">
+                <td>11</td>
+                <td></td>
+                <td>Vue Part 4 (Routing, State Management)</td>
+                <td></td>
+                <td></td>
+                <td>Quiz 3</td>
+              </tr>
+              <tr class="important-dates">
+                <td>12</td>
+                <td></td>
+                <td>No Lecture, Project Work and Consultation In-Class</td>
+                <td></td>
+                <td>Project Deliverables by 06/11/2026 @ 0900hrs</td>
+                <td>Quiz 4</td>
+              </tr>
+              <tr class="important-dates">
+                <td>13</td>
+                <td></td>
+                <td>Project Presentation In-Class</td>
+                <td></td>
+                <td></td>
+                <td>Final Presentation</td>
+              </tr>
+              <tr class="important-dates">
+                <td>16</td>
+                <td>04/12/2026</td>
+                <td>Final Exam</td>
+                <td></td>
+                <td>Final Exam @ 0830hrs</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      <div class="row-triple">
+        <section id="skills" class="card skills">
+          <h2>Skills &amp; Tools used for WAD2</h2>
+          <ul class="pill-list">
+            <li>🌐 HTML</li>
+            <li>🎨 CSS</li>
+            <li>🔧 Git &amp; GitHub</li>
+            <li>🔧 Visual Studio Code</li>
+          </ul>
+        </section>
+
+        <section id="projects" class="card projects">
+          <h2>IS216 Homework and Projects</h2>
+          <ul class="pill-list">
+            <li><a href="fanpage.html">W01 Celebrity Fan Page</a></li>
+            <li><a href="Challenge1/home.html">W02 Challenge #1</a></li>
+            <li><a href="Challenge2/home.html">W02 Challenge #2</a></li>
+            <li><a href="Challenge3/home.html">W02 Challenge #3</a></li>
+          </ul>
+        </section>
+
+        <section id="contact" class="card contact">
+          <h2>Contact</h2>
+          <ul class="pill-list">
+            <li>
+              <a
+                href="https://www.instagram.com/dxterchua/?hl=en"
+                target="_blank"
+                >📷 Instagram</a
+              >
+            </li>
+            <li>
+              <a href="https://github.com/dxterch" target="_blank">🔗 GitHub</a>
+            </li>
+            <li>
+              <a href="mailto:dexter.chua.2025@computing.smu.edu.sg">✉ Email</a>
+            </li>
+            <li>
+                <a href="https://t.me/dxterchua">✆ Telegram</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <a href="#top" class="back-to-top" aria-label="Back to top">↑ Top</a>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 Dexter. Built for IS216.</p>
+    </footer>
+
+    <!-- Link your JS file here once you create it -->
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
