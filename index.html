@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dexter Chua - Personal Website</title>
+    <link rel="icon" class="site-img" type="image/jpeg" href="Images/cat.jpg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
-      <nav class="navbar">
+      <!-- <nav class="navbar">
         <div class="logo">Dexter's Personal Website | Version 1</div>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
@@ -18,33 +25,147 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+      </nav> -->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img
+              src="Images/cat.jpg" 
+              class="navbar-brand-img"
+              alt="Site Logo"
+            />
+            Dexter's Personal Webpage</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  href="https://github.com/dxterch/dxterch.github.io"
+                  class="nav-link"
+                  href="#"
+                  >Personal Github Repository</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  WAD2 Challenges & Projects
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="Lesson 02/Challenge1/home.html"
+                      >W02 Challenge #1</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="Lesson 02/Challenge2/home.html"
+                      >W02 Challenge #2</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="Lesson 02/Challenge3/home.html"
+                      >W02 Challenge #3</a
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="fanpage.html"
+                      >W01 Celebrity Fan Page</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true"
+                  >For WAD2 Learning Purposes Only</a
+                >
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
       </nav>
-      <p id="mini-details" class="mini-details">
-        | [IS216] Web Application Development II (WAD2) | For Learning Purposes
-        Only |
-      </p>
     </header>
 
     <main>
-      <div class="row-full">
-        <section id="warning" class="card warning-card">
-          <h2>Warning!</h2>
-          <p>
-            This page will always be in a Work In Progress (WIP) stage as lessons go by. It may look
-            ugly at first, but I hope to get it improved over the semester.
-          </p>
-        </section>
+      <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+          <path
+            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+          />
+        </symbol>
+      </svg>
+      <div
+        class="alert alert-warning alert-dismissible fade show d-flex align-items-center mt-3"
+        role="alert"
+      >
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+          <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        <div>
+          This page will always be in a Work In Progress (WIP) stage as lessons
+          go by. It may look ugly at first, but I hope to get it improved over
+          the semester.
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
       </div>
 
-      <div class="intro-row">
+      <div class="intro-row mt-3">
         <section id="about" class="card">
-          <img class="personal-pic" src="Images/cat.jpg" alt="My Picture" />
+          <img
+            class="personal-pic"
+            src="Images/PersonalPicture.jpg"
+            alt="My Picture"
+          />
           <h2>About Me</h2>
           <p>
             Hello, my name is Dexter, a Year 2 Information Systems student at
-            Singapore Management University (SMU), living in Woodlands. For this
-            module (IS216 Web Application Development II), where I'm learning
-            how to build and style web pages using HTML and CSS, I'm
+            Singapore Management University (SMU), living in Woodlands.
+          </p>
+          <p>
+            For this module (IS216 Web Application Development II), where I'm
+            learning how to build and style web pages using HTML and CSS, I'm
             hoping to get better at designing somewhat clean, polished pages, as
             lessons progresses. Outside of coding, Switzerland tops my travel
             bucket list. This page would be updated as time progresses as well.
@@ -72,7 +193,7 @@
             />
 
             <button class="marker" id="marker-home" aria-label="Woodlands">
-              <span class="tooltip">Home: Woodlands</span>
+              <span class="tooltip">Woodlands</span>
             </button>
 
             <button
@@ -80,9 +201,7 @@
               id="marker-school"
               aria-label="Singapure Management University (SMU)"
             >
-              <span class="tooltip"
-                >School: Singapore Management University (SMU)</span
-              >
+              <span class="tooltip">Singapore Management University (SMU)</span>
             </button>
 
             <aside class="legend">
@@ -99,141 +218,307 @@
       <div class="row-full">
         <section id="learning" class="card">
           <h2>What I'm Learning in WAD2 so far</h2>
-          <table id="learning-table" class="learning-table">
-            <thead>
-              <tr>
-                <th>Week</th>
-                <th>Lesson Date</th>
-                <th>Topic</th>
-                <th>What I Built / Learned</th>
-                <th>Remarks</th>
-                <th>Assessments</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="completed-dates">
-                <td>1</td>
-                <td>20/08/2026</td>
-                <td>Course Intro, HTML Recap, GitHub Pages</td>
-                <td>
-                  Set up my GitHub Pages site and pushed my first webpage
-                  (fanpage.html)
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="completed-dates">
-                <td>2</td>
-                <td>27/08/2026</td>
-                <td>CSS Part 1 (Vanilla CSS)</td>
-                <td>
-                  Learning about Vanilla CSS and Creating my own personal
-                  webpage (index.html)
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>03/09/2026</td>
-                <td>CSS Part 2 (Bootstrap)</td>
-                <td></td>
-                <td>Project Briefing</td>
-                <td></td>
-              </tr>
-              <tr class="important-dates">
-                <td>4</td>
-                <td>10/09/2026</td>
-                <td>Vue Part 1 (Basics)</td>
-                <td></td>
-                <td></td>
-                <td>Quiz 1</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>17/09/2026</td>
-                <td>Vue Part 2 (Event Handling)</td>
-                <td></td>
-                <td>JSON, Asynchronous Calls (Axios, APIs)</td>
-                <td></td>
-              </tr>
-              <tr class="important-dates">
-                <td>6</td>
-                <td>24/09/2026</td>
-                <td>Vue Part 3 (Components)</td>
-                <td></td>
-                <td></td>
-                <td>Quiz 2</td>
-              </tr>
-              <tr class="important-dates">
-                <td>7</td>
-                <td>01/10/2026</td>
-                <td>Trial Lab Test</td>
-                <td></td>
-                <td>
-                  Project Proposal Completion (Google Doc) by 02/10/2026 @
-                  2359hrs
-                </td>
-                <td>Lab Test: 02/10/2026</td>
-              </tr>
-              <tr class="chill-dates">
-                <td>8</td>
-                <td>Recess Week</td>
-                <td>No Lesson</td>
-                <td>Recess Week</td>
-                <td>Recess Week</td>
-                <td>Recess Week</td>
-              </tr>
-              <tr class="important-dates">
-                <td>9</td>
-                <td></td>
-                <td>Project - Progress Evaluation</td>
-                <td></td>
-                <td></td>
-                <td>7-min Presentation + ~5-min Q&A</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td></td>
-                <td>Testing</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr class="important-dates">
-                <td>11</td>
-                <td></td>
-                <td>Vue Part 4 (Routing, State Management)</td>
-                <td></td>
-                <td></td>
-                <td>Quiz 3</td>
-              </tr>
-              <tr class="important-dates">
-                <td>12</td>
-                <td></td>
-                <td>No Lecture, Project Work and Consultation In-Class</td>
-                <td></td>
-                <td>Project Deliverables by 06/11/2026 @ 0900hrs</td>
-                <td>Quiz 4</td>
-              </tr>
-              <tr class="important-dates">
-                <td>13</td>
-                <td></td>
-                <td>Project Presentation In-Class</td>
-                <td></td>
-                <td></td>
-                <td>Final Presentation</td>
-              </tr>
-              <tr class="important-dates">
-                <td>16</td>
-                <td>04/12/2026</td>
-                <td>Final Exam</td>
-                <td></td>
-                <td>Final Exam @ 0830hrs</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table
+              id="learning-table"
+              class="table table-bordered align-middle learning-table"
+            >
+              <thead>
+                <tr>
+                  <th>Week</th>
+                  <th>Lesson Date</th>
+                  <th>Topic</th>
+                  <th>What I Built / Learned</th>
+                  <th>Remarks</th>
+                  <th>Assessments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="completed-dates">
+                  <td>1</td>
+                  <td>20/08/2026</td>
+                  <td>Course Intro, HTML Recap, GitHub Pages</td>
+                  <td>
+                    Set up my GitHub Pages site and pushed my first webpage (<a
+                      href="fanpage.html"
+                      >fanpage.html</a
+                    >)
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="completed-dates">
+                  <td>2</td>
+                  <td>27/08/2026</td>
+                  <td>CSS Part 1 (Vanilla CSS)</td>
+                  <td>
+                    Learning about Vanilla CSS and Creating my own personal
+                    webpage (<a href="index.html">index.html</a>)
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="completed-dates">
+                  <td>3</td>
+                  <td>03/09/2026</td>
+                  <td>CSS Part 2 (Bootstrap)</td>
+                  <td>
+                    Learning about Bootstrap and further improving of own
+                    personal webpage (<a href="index.html">index.html</a>)
+                  </td>
+                  <td>Project Briefing</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>10/09/2026</td>
+                  <td>Vue Part 1 (Basics)</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-warning"
+                      >Quiz 1</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>17/09/2026</td>
+                  <td>Vue Part 2 (Event Handling)</td>
+                  <td></td>
+                  <td>JSON, Asynchronous Calls (Axios, APIs)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>24/09/2026</td>
+                  <td>Vue Part 3 (Components)</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-warning"
+                      >Quiz 2</span
+                    >
+                  </td>
+                </tr>
+                <tr class="important-dates">
+                  <td>7</td>
+                  <td>01/10/2026</td>
+                  <td>Trial Lab Test</td>
+                  <td></td>
+                  <td>
+                    <span class="badge bg-danger"
+                      >Project Proposal Completion by 02/10/2026 @ 2359hrs</span
+                    >
+                  </td>
+                  <td>
+                    <span class="badge bg-danger">Lab Test: 02/10/2026</span>
+                  </td>
+                </tr>
+                <tr class="chill-dates">
+                  <td>8</td>
+                  <td colspan="6">
+                    <span class="badge bg-success">Recess Week</span>
+                  </td>
+                </tr>
+                <tr class="important-dates">
+                  <td>9</td>
+                  <td>15/10/2026</td>
+                  <td>Project - Progress Evaluation</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-danger"
+                      >7-min Presentation + ~5-min Q&A</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>22/10/2026</td>
+                  <td>Testing</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>29/10/2026</td>
+                  <td>Vue Part 4 (Routing, State Management)</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-warning"
+                      >Quiz 3</span
+                    >
+                  </td>
+                </tr>
+                <tr class="important-dates">
+                  <td>12</td>
+                  <td>05/10/2026</td>
+                  <td>No Lecture, Project Work and Consultation In-Class</td>
+                  <td></td>
+                  <td>
+                    <span class="badge bg-danger"
+                      >Project by 06/11/2026 @ 0900hrs</span
+                    >
+                  </td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-warning"
+                      >Quiz 4</span
+                    >
+                  </td>
+                </tr>
+                <tr class="important-dates">
+                  <td>13</td>
+                  <td>12/11/2026</td>
+                  <td>
+                    <span class="badge bg-danger"
+                      >Project Presentation In-Class</span
+                    >
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-danger"
+                      >Final Presentation</span
+                    >
+                  </td>
+                </tr>
+                <tr class="important-dates">
+                  <td>16</td>
+                  <td>04/12/2026</td>
+                  <td colspan="4">
+                    <span class="badge bg-danger">Final Exam @ 0830hrs</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div class="row-full">
+        <section id="projects" class="card projects">
+          <h2>IS216 Homework and Projects</h2>
+          <div id="projectsCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#projectsCarousel"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#projectsCarousel"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#projectsCarousel"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#projectsCarousel"
+                data-bs-slide-to="3"
+                aria-label="Slide 4"
+              ></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="Images/[Week 1] Fanpage.png"
+                  class="d-block w-100"
+                  alt="Week 1 Fanpage"
+                />
+                <div
+                  class="carousel-caption d-none d-md-block project-captions"
+                >
+                  <h5>Week 01 Fanpage</h5>
+                  <p>
+                    A Fernando Alonso built to practice HTML structure with the
+                    help of basic CSS and assistance of GenAI tools (Claude)
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="Images/[Week 2] Challenge 1.png"
+                  class="d-block w-100"
+                  alt="Week 2 Challenge #1"
+                />
+                <div
+                  class="carousel-caption d-none d-md-block project-captions"
+                >
+                  <h5>Week 02 Challenge #01</h5>
+                  <p>
+                    Practicing CSS fundamentals with box model, layout and basic styling
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="Images/[Week 2] Challenge 2.png"
+                  class="d-block w-100"
+                  alt="Week 2 Challenge #2"
+                />
+                <div
+                  class="carousel-caption d-none d-md-block project-captions"
+                >
+                  <h5>Week 02 Challenge #02</h5>
+                  <p>
+                    Exploring Flexbox for responsive layouts
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="Images/[Week 2] Challenge 3.png"
+                  class="d-block w-100"
+                  alt="Week 2 Challenge #3"
+                />
+                <div
+                  class="carousel-caption d-none d-md-block project-captions"
+                >
+                  <h5>Week 02 Challenge #03</h5>
+                  <p>
+                    Combining layout and colors into one page
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#projectsCarousel"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#projectsCarousel"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         </section>
       </div>
 
@@ -245,16 +530,6 @@
             <li>🎨 CSS</li>
             <li>🔧 Git &amp; GitHub</li>
             <li>🔧 Visual Studio Code</li>
-          </ul>
-        </section>
-
-        <section id="projects" class="card projects">
-          <h2>IS216 Homework and Projects</h2>
-          <ul class="pill-list">
-            <li><a href="fanpage.html">W01 Celebrity Fan Page</a></li>
-            <li><a href="Challenge1/home.html">W02 Challenge #1</a></li>
-            <li><a href="Challenge2/home.html">W02 Challenge #2</a></li>
-            <li><a href="Challenge3/home.html">W02 Challenge #3</a></li>
           </ul>
         </section>
 
@@ -288,7 +563,10 @@
       <p>&copy; 2026 Dexter. Built for IS216.</p>
     </footer>
 
-    <!-- Link your JS file here once you create it -->
-    <!-- <script src="script.js"></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
