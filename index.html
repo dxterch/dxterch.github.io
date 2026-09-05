@@ -136,27 +136,30 @@
         </symbol>
       </svg>
       <div
-        class="alert alert-warning alert-dismissible fade show d-flex align-items-center mt-3"
+        class="alert alert-warning alert-dismissible fade show d-flex mt-3 wip-alert"
         role="alert"
+        id="wipAlert"
       >
-        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-          <use xlink:href="#exclamation-triangle-fill" />
-        </svg>
-        <div>
-          This page will always be in a Work In Progress (WIP) stage as lessons
-          go by. It may look ugly at first, but I hope to get it improved over
-          the semester.
+        <div class="wip-alert-content d-flex align-items-center">
+          <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+            <use xlink:href="#exclamation-triangle-fill" />
+          </svg>
+          <div>
+            This page will always be in a Work In Progress (WIP) stage as
+            lessons go by. It may look ugly at first, but I hope to get it
+            improved over the semester.
+          </div>
           <button
             type="button"
             class="btn-close"
-            data-bs-dismiss="alert"
+            id="wipAlertClose"
             aria-label="Close"
           ></button>
         </div>
       </div>
 
       <div class="intro-row mt-3">
-        <section id="about" class="card">
+        <section id="about" class="card about-me">
           <img
             class="personal-pic"
             src="Images/PersonalPicture.jpg"
@@ -177,13 +180,23 @@
         </section>
         <section id="travel-dest" class="card">
           <h2>My (Ideal) Favorite Travel Destination</h2>
-          <h3>Country: Switzerland</h3>
+          <p class="text-muted mb-2">Country: Switzerland</p>
           <div class="video-wrapper">
-            <video autoplay muted loop playsinline controls>
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              controls
+              poster="Images/switzerland-flag.jpg"
+            >
               <source src="Video/Discover Switzerland.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
+          <p class="text-muted small mt-2">
+            A quick 82-second look at why it's #1 on my list.
+          </p>
         </section>
       </div>
 
@@ -210,7 +223,7 @@
 
             <button
               id="legendToggleBtn"
-              class="btn btn-sm btn-primary legend-toggle d-md-none "
+              class="btn btn-sm btn-primary legend-toggle d-md-none"
               aria-expanded="false"
             >
               Legend
@@ -690,7 +703,9 @@
     <a href="#top" class="back-to-top" aria-label="Back to top">↑ Top</a>
 
     <footer class="site-footer">
-      <p>&copy; 2026 Dexter. Built for IS216.</p>
+      <span class="badge rounded-pill text-bg-dark"
+        >&copy; 2026 Dexter. Built for IS216 Practice</span
+      >
     </footer>
 
     <script
@@ -715,6 +730,14 @@
       legendCloseBtn.addEventListener("click", () => {
         mapLegend.classList.remove("show");
         legendToggleBtn.setAttribute("aria-expanded", "false");
+      });
+
+      document.getElementById("wipAlertClose").addEventListener("click", () => {
+        const alertEl = document.getElementById("wipAlert");
+        alertEl.classList.add("closing");
+        alertEl.addEventListener("transitioned", () => alertEl.remove(), {
+          once: true,
+        });
       });
     </script>
   </body>
