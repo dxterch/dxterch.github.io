@@ -75,6 +75,11 @@ section[id] {
     vertical-align: middle;
 }
 
+.navbar-collapse {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+
 .navbar {
     background-color: rgba(20, 20, 20, 0.75) !important;
     backdrop-filter: blur(10px);
@@ -99,6 +104,8 @@ section[id] {
     transform: scale(1);
     pointer-events: auto;
 }
+
+
 
 .bi {
     width: 1.25em;
