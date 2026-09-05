@@ -14,23 +14,19 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
+
     <header>
-      <!-- <nav class="navbar">
-        <div class="logo">Dexter's Personal Website | Version 1</div>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#location">Location</a></li>
-          <li><a href="#learning">Learning Log</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav> -->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav
+        class="navbar navbar-expand-lg fixed-top navbar-dark"
+        data-bs-theme="dark"
+      >
         <div class="container-fluid">
           <a class="navbar-brand" href="#"
             ><img
-              src="Images/cat.jpg" 
+              src="Images/cat.jpg"
               class="navbar-brand-img"
               alt="Site Logo"
             />
@@ -57,7 +53,7 @@
                   href="https://github.com/dxterch/dxterch.github.io"
                   class="nav-link"
                   href="#"
-                  >Personal Github Repository</a
+                  >Github Repo</a
                 >
               </li>
               <li class="nav-item dropdown">
@@ -68,7 +64,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="true"
                 >
-                  WAD2 Challenges & Projects
+                  Challenges & Projects
                 </a>
 
                 <ul class="dropdown-menu">
@@ -204,7 +200,18 @@
               <span class="tooltip">Singapore Management University (SMU)</span>
             </button>
 
-            <aside class="legend">
+            <button
+              id="legendToggleBtn"
+              class="btn btn-sm btn-primary legend-toggle d-md-none "
+              aria-expanded="false"
+            >
+              Legend
+            </button>
+            <aside class="legend" id="mapLegend">
+              <button
+                id="legendCloseBtn"
+                class="btn-close legend-close d-md-none"
+              ></button>
               <h3>Legend</h3>
               <ul>
                 <li><span class="dot home"></span> Home</li>
@@ -216,184 +223,262 @@
       </div>
 
       <div class="row-full">
-        <section id="learning" class="card">
+        <section id="learning" class="card wad-schedule">
           <h2>What I'm Learning in WAD2 so far</h2>
-          <div class="table-responsive">
-            <table
-              id="learning-table"
-              class="table table-bordered align-middle learning-table"
-            >
-              <thead>
-                <tr>
-                  <th>Week</th>
-                  <th>Lesson Date</th>
-                  <th>Topic</th>
-                  <th>What I Built / Learned</th>
-                  <th>Remarks</th>
-                  <th>Assessments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="completed-dates">
-                  <td>1</td>
-                  <td>20/08/2026</td>
-                  <td>Course Intro, HTML Recap, GitHub Pages</td>
-                  <td>
-                    Set up my GitHub Pages site and pushed my first webpage (<a
-                      href="fanpage.html"
-                      >fanpage.html</a
-                    >)
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr class="completed-dates">
-                  <td>2</td>
-                  <td>27/08/2026</td>
-                  <td>CSS Part 1 (Vanilla CSS)</td>
-                  <td>
-                    Learning about Vanilla CSS and Creating my own personal
-                    webpage (<a href="index.html">index.html</a>)
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr class="completed-dates">
-                  <td>3</td>
-                  <td>03/09/2026</td>
-                  <td>CSS Part 2 (Bootstrap)</td>
-                  <td>
-                    Learning about Bootstrap and further improving of own
-                    personal webpage (<a href="index.html">index.html</a>)
-                  </td>
-                  <td>Project Briefing</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>10/09/2026</td>
-                  <td>Vue Part 1 (Basics)</td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <span class="badge rounded-pill text-bg-warning"
-                      >Quiz 1</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>17/09/2026</td>
-                  <td>Vue Part 2 (Event Handling)</td>
-                  <td></td>
-                  <td>JSON, Asynchronous Calls (Axios, APIs)</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>24/09/2026</td>
-                  <td>Vue Part 3 (Components)</td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <span class="badge rounded-pill text-bg-warning"
-                      >Quiz 2</span
-                    >
-                  </td>
-                </tr>
-                <tr class="important-dates">
-                  <td>7</td>
-                  <td>01/10/2026</td>
-                  <td>Trial Lab Test</td>
-                  <td></td>
-                  <td>
-                    <span class="badge bg-danger"
-                      >Project Proposal Completion by 02/10/2026 @ 2359hrs</span
-                    >
-                  </td>
-                  <td>
-                    <span class="badge bg-danger">Lab Test: 02/10/2026</span>
-                  </td>
-                </tr>
-                <tr class="chill-dates">
-                  <td>8</td>
-                  <td colspan="6">
-                    <span class="badge bg-success">Recess Week</span>
-                  </td>
-                </tr>
-                <tr class="important-dates">
-                  <td>9</td>
-                  <td>15/10/2026</td>
-                  <td>Project - Progress Evaluation</td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <span class="badge rounded-pill text-bg-danger"
-                      >7-min Presentation + ~5-min Q&A</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>10</td>
-                  <td>22/10/2026</td>
-                  <td>Testing</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>11</td>
-                  <td>29/10/2026</td>
-                  <td>Vue Part 4 (Routing, State Management)</td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <span class="badge rounded-pill text-bg-warning"
-                      >Quiz 3</span
-                    >
-                  </td>
-                </tr>
-                <tr class="important-dates">
-                  <td>12</td>
-                  <td>05/10/2026</td>
-                  <td>No Lecture, Project Work and Consultation In-Class</td>
-                  <td></td>
-                  <td>
-                    <span class="badge bg-danger"
-                      >Project by 06/11/2026 @ 0900hrs</span
-                    >
-                  </td>
-                  <td>
-                    <span class="badge rounded-pill text-bg-warning"
-                      >Quiz 4</span
-                    >
-                  </td>
-                </tr>
-                <tr class="important-dates">
-                  <td>13</td>
-                  <td>12/11/2026</td>
-                  <td>
-                    <span class="badge bg-danger"
-                      >Project Presentation In-Class</span
-                    >
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <span class="badge rounded-pill text-bg-danger"
-                      >Final Presentation</span
-                    >
-                  </td>
-                </tr>
-                <tr class="important-dates">
-                  <td>16</td>
-                  <td>04/12/2026</td>
-                  <td colspan="4">
-                    <span class="badge bg-danger">Final Exam @ 0830hrs</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+          <ul class="nav nav-tabs justify-content-center mb-3">
+            <li class="nav-item">
+              <button
+                class="nav-link active"
+                data-bs-toggle="tab"
+                data-bs-target="#weeks1-6"
+                type="button"
+              >
+                Weeks 1–6
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#weeks7-13"
+                type="button"
+              >
+                Weeks 7–13
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#finalExam"
+                type="button"
+              >
+                Final Exam
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="weeks1-6">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle learning-table">
+                  <thead>
+                    <tr>
+                      <th>Week</th>
+                      <th>Lesson Date</th>
+                      <th>Topic</th>
+                      <th>What I Built / Learned</th>
+                      <th>Remarks</th>
+                      <th>Assessments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="completed-dates">
+                      <td>1</td>
+                      <td>20/08/2026</td>
+                      <td>Course Intro, HTML Recap, GitHub Pages</td>
+                      <td>
+                        Set up my GitHub Pages site and pushed my first webpage
+                        (<a href="fanpage.html">fanpage.html</a>)
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="completed-dates">
+                      <td>2</td>
+                      <td>27/08/2026</td>
+                      <td>CSS Part 1 (Vanilla CSS)</td>
+                      <td>
+                        Learning about Vanilla CSS and Creating my own personal
+                        webpage (<a href="index.html">index.html</a>)
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="completed-dates">
+                      <td>3</td>
+                      <td>03/09/2026</td>
+                      <td>CSS Part 2 (Bootstrap)</td>
+                      <td>
+                        Learning about Bootstrap and further improving of own
+                        personal webpage (<a href="index.html">index.html</a>)
+                      </td>
+                      <td>Project Briefing</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>10/09/2026</td>
+                      <td>Vue Part 1 (Basics)</td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-warning"
+                          >Quiz 1</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>17/09/2026</td>
+                      <td>Vue Part 2 (Event Handling)</td>
+                      <td></td>
+                      <td>JSON, Asynchronous Calls (Axios, APIs)</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>24/09/2026</td>
+                      <td>Vue Part 3 (Components)</td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-warning"
+                          >Quiz 2</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="weeks7-13">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle learning-table">
+                  <thead>
+                    <tr>
+                      <th>Week</th>
+                      <th>Lesson Date</th>
+                      <th>Topic</th>
+                      <th>What I Built / Learned</th>
+                      <th>Remarks</th>
+                      <th>Assessments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="important-dates">
+                      <td>7</td>
+                      <td>01/10/2026</td>
+                      <td>Trial Lab Test</td>
+                      <td></td>
+                      <td>
+                        <span class="badge bg-danger"
+                          >Project Proposal Completion by 02/10/2026 @
+                          2359hrs</span
+                        >
+                      </td>
+                      <td>
+                        <span class="badge bg-danger"
+                          >Lab Test: 02/10/2026</span
+                        >
+                      </td>
+                    </tr>
+                    <tr class="chill-dates">
+                      <td>8</td>
+                      <td colspan="6">
+                        <span class="badge bg-success">Recess Week</span>
+                      </td>
+                    </tr>
+                    <tr class="important-dates">
+                      <td>9</td>
+                      <td>15/10/2026</td>
+                      <td>Project - Progress Evaluation</td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-danger"
+                          >7-min Presentation + ~5-min Q&A</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>22/10/2026</td>
+                      <td>Testing</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>11</td>
+                      <td>29/10/2026</td>
+                      <td>Vue Part 4 (Routing, State Management)</td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-warning"
+                          >Quiz 3</span
+                        >
+                      </td>
+                    </tr>
+                    <tr class="important-dates">
+                      <td>12</td>
+                      <td>05/10/2026</td>
+                      <td>
+                        No Lecture, Project Work and Consultation In-Class
+                      </td>
+                      <td></td>
+                      <td>
+                        <span class="badge bg-danger"
+                          >Project by 06/11/2026 @ 0900hrs</span
+                        >
+                      </td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-warning"
+                          >Quiz 4</span
+                        >
+                      </td>
+                    </tr>
+                    <tr class="important-dates">
+                      <td>13</td>
+                      <td>12/11/2026</td>
+                      <td>
+                        <span class="badge bg-danger"
+                          >Project Presentation In-Class</span
+                        >
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <span class="badge rounded-pill text-bg-danger"
+                          >Final Presentation</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="finalExam">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle learning-table">
+                  <thead>
+                    <tr>
+                      <th>Week</th>
+                      <th>Lesson Date</th>
+                      <th>Topic</th>
+                      <th>What I Built / Learned</th>
+                      <th>Remarks</th>
+                      <th>Assessments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="important-dates">
+                      <td>16</td>
+                      <td>04/12/2026</td>
+                      <td colspan="4">
+                        <span class="badge bg-danger"
+                          >Final Exam @ 0830hrs</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -401,7 +486,11 @@
       <div class="row-full">
         <section id="projects" class="card projects">
           <h2>IS216 Homework and Projects</h2>
-          <div id="projectsCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+          <div
+            id="projectsCarousel"
+            class="carousel slide carousel-fade"
+            data-bs-ride="carousel"
+          >
             <div class="carousel-indicators">
               <button
                 type="button"
@@ -458,7 +547,8 @@
                 >
                   <h5>Week 02 Challenge #01</h5>
                   <p>
-                    Practicing CSS fundamentals with box model, layout and basic styling
+                    Practicing CSS fundamentals with box model, layout and basic
+                    styling
                   </p>
                 </div>
               </div>
@@ -472,9 +562,7 @@
                   class="carousel-caption d-none d-md-block project-captions"
                 >
                   <h5>Week 02 Challenge #02</h5>
-                  <p>
-                    Exploring Flexbox for responsive layouts
-                  </p>
+                  <p>Exploring Flexbox for responsive layouts</p>
                 </div>
               </div>
               <div class="carousel-item">
@@ -487,9 +575,7 @@
                   class="carousel-caption d-none d-md-block project-captions"
                 >
                   <h5>Week 02 Challenge #03</h5>
-                  <p>
-                    Combining layout and colors into one page
-                  </p>
+                  <p>Combining layout and colors into one page</p>
                 </div>
               </div>
             </div>
@@ -522,37 +608,73 @@
         </section>
       </div>
 
-      <div class="row-triple">
-        <section id="skills" class="card skills">
-          <h2>Skills &amp; Tools used for WAD2</h2>
-          <ul class="pill-list">
-            <li>🌐 HTML</li>
-            <li>🎨 CSS</li>
-            <li>🔧 Git &amp; GitHub</li>
-            <li>🔧 Visual Studio Code</li>
-          </ul>
-        </section>
+      <div class="row-full">
+        <section class="card get-to-know-me">
+          <h2>Get to Know Me</h2>
+          <div class="row g-4 text-start">
+            <div class="col-md-6" id="skills">
+              <h3 class="h5">WAD2 Skills &amp; Tools (as of Week 3):</h3>
+              <div class="mb-2">
+                <span class="badge skill-core me-1 mb-1">HTML</span>
+                <span class="badge skill-core me-1 mb-1">CSS</span>
+              </div>
+              <div class="mb-2">
+                <span class="badge skill-learning me-1 mb-1">Bootstrap</span>
+                <span class="badge skill-learning me-1 mb-1">Vue</span>
+              </div>
+              <div>
+                <span class="badge skill-tooling me-1 mb-1"
+                  >Git &amp; GitHub</span
+                >
+                <span class="badge skill-tooling me-1 mb-1">VS Code</span>
+              </div>
 
-        <section id="contact" class="card contact">
-          <h2>Contact</h2>
-          <ul class="pill-list">
-            <li>
-              <a
-                href="https://www.instagram.com/dxterchua/?hl=en"
-                target="_blank"
-                >📷 Instagram</a
-              >
-            </li>
-            <li>
-              <a href="https://github.com/dxterch" target="_blank">🔗 GitHub</a>
-            </li>
-            <li>
-              <a href="mailto:dexter.chua.2025@computing.smu.edu.sg">✉ Email</a>
-            </li>
-            <li>
-              <a href="https://t.me/dxterchua">✆ Telegram</a>
-            </li>
-          </ul>
+              <p class="text-muted small mb-3">
+                🟦 Core = comfortable already &nbsp;•&nbsp; 🟧 Learning Now =
+                this semester &nbsp;•&nbsp; ⬜ Tooling = Daily Tools
+              </p>
+              <div class="mb-1 small fw-bold">Course progress</div>
+              <div class="progress mb-2" style="height: 8px">
+                <div class="progress-bar bg-success" style="width: 25%"></div>
+              </div>
+              <p class="text-muted small">
+                Week 3 of 13: Currently on Bootstrap, Vue up next.
+              </p>
+            </div>
+
+            <div class="col-md-6" id="contact">
+              <h3 class="h5">Contact:</h3>
+              <div class="list-group">
+                <a
+                  href="https://github.com/dxterch"
+                  target="_blank"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  ><span class="contact-icon">🔗</span> GitHub
+                </a>
+                <a
+                  href="mailto:dexter.chua.2025@computing.smu.edu.sg"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  ><span class="contact-icon">✉</span> Email
+                </a>
+                <a
+                  href="https://www.instagram.com/dxterchua/?hl=en"
+                  target="_blank"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  ><span class="contact-icon">📷</span> Instagram
+                </a>
+                <a
+                  href="https://t.me/dxterchua"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  ><span class="contact-icon">✆</span> Telegram
+                </a>
+                <a
+                  href="https://wa.me/6589266261"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  ><span class="contact-icon">✆</span> Whatsapp
+                </a>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </main>
@@ -568,5 +690,24 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      // Custom animated show/hide for the map legend (mobile only).
+      // Not using Bootstrap's collapse here since .legend is absolutely
+      // positioned, which doesn't play well with collapse's height animation.
+      const legendToggleBtn = document.getElementById("legendToggleBtn");
+      const legendCloseBtn = document.getElementById("legendCloseBtn");
+      const mapLegend = document.getElementById("mapLegend");
+
+      legendToggleBtn.addEventListener("click", () => {
+        mapLegend.classList.add("show");
+        legendToggleBtn.setAttribute("aria-expanded", "true");
+      });
+
+      legendCloseBtn.addEventListener("click", () => {
+        mapLegend.classList.remove("show");
+        legendToggleBtn.setAttribute("aria-expanded", "false");
+      });
+    </script>
   </body>
 </html>
