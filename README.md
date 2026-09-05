@@ -3,44 +3,42 @@
 A personal portfolio site built for **IS216 Web Application Development II**, tracking my progress through the module — from vanilla HTML/CSS to Bootstrap. This repo also hosts a standalone Fernando Alonso fanpage and a set of Week 2 CSS practice challenges.
 
 🔗 **Live site:** <https://dxterch.github.io/>
-
 > ⚠️ This page is a Work In Progress and will keep evolving as the semester goes on.
 
 ## Personal Website (`index.html`)
 
 Built with **Bootstrap 5.3** on top of custom CSS. Sections and components:
 
-- **Responsive navbar** — collapsible on mobile, with a "WAD2 Challenges & Projects" dropdown linking to each challenge and the fanpage
-- **Working on-page search** — jumps to the matching section (About, Skills, Projects, Contact, etc.) using simple keyword matching
+- **Responsive navbar** — collapsible on mobile, with a "Challenges & Projects" dropdown linking to each Week 2 challenge and the fanpage
 - **Dismissible alert** — flags the site as a WIP, with an icon and close button
 - **About Me + Favorite Travel Destination** — intro card and an autoplaying video card
-- **Interactive Singapore map** — hoverable markers (Home / School) with tooltips and a legend
-- **Learning Log table** — week-by-week record of topics, deliverables, and assessments, color-coded by row type and scrollable on small screens (`table-responsive`)
-- **Skills badges** — pill-style badges for tools used in the module
-- **Projects carousel** — cycles through screenshots of the fanpage and Week 2 challenges, each with a caption and a "View Project" link
-- **Contact buttons** — outlined buttons linking to Instagram, GitHub, Email, and Telegram
+- **Interactive Singapore map** — hoverable markers (Home / School) with tooltips and a legend; on mobile, the legend is hidden behind a toggle button to save space
+- **Learning Log** — week-by-week record of topics, deliverables, and assessments, split into three tabs (Weeks 1–6 / Weeks 7–13 / Final Exam), color-coded by row type, and horizontally scrollable on small screens
+- **Projects carousel** — cycles through screenshots of the fanpage and Week 2 challenges; quick-jump pills above the carousel let you skip straight to a project; clicking any image opens it full-size in a modal with a caption
+- **"Get to Know Me" card** — Skills & Tools grouped by category (Core / Learning Now / Tooling) alongside a Contact list of Instagram, GitHub, Email, and Telegram
 - **Back to Top button** — fixed-position button for quick navigation on long pages
+
+> Note: the navbar's search bar is currently UI-only and not yet wired up to actually filter or jump to sections.
 
 ## Project structure
 
 ```
-index.html          → Personal website (Bootstrap + custom CSS)
-styles.css           → Custom styles layered on top of Bootstrap
-fanpage.html         → Fernando Alonso fanpage (HTML, CSS, JS all in one file)
-Images/              → All photos and graphics used across the site
-.nojekyll            → Disables Jekyll processing for GitHub Pages
-Lesson 02/
-  Challenge1/        → Week 2 - Margin, Padding, Border
-  Challenge2/        → Week 2 - Element, Class, ID Selectors
-  Challenge3/         → Week 2 - Positioning
+index.html      → Personal website (Bootstrap + custom CSS)
+styles.css      → Custom styles layered on top of Bootstrap
+fanpage.html    → Fernando Alonso fanpage (HTML, CSS, JS all in one file)
+Images/         → All photos and graphics used across the site
+.nojekyll       → Disables Jekyll processing for GitHub Pages
+Challenge1/     → Week 2 - Margin, Padding, Border
+Challenge2/     → Week 2 - Element, Class, ID Selectors
+Challenge3/     → Week 2 - Positioning
 ```
 
 ## Built with
 
 - HTML5
 - CSS3 (custom properties, flexbox, grid)
-- Bootstrap 5.3 (navbar, dropdown, alert, carousel, badges, buttons, forms)
-- Vanilla JavaScript (site search, plus Bootstrap's own JS bundle for interactive components)
+- Bootstrap 5.3 (navbar, dropdown, alert, carousel, modal, nav-pills, tabs, list-group, badges, buttons)
+- Vanilla JavaScript (legend toggle, modal image swap, carousel/pill sync, plus Bootstrap's own JS bundle for interactive components)
 
 ---
 
@@ -71,15 +69,15 @@ A set of standalone CSS practice exercises themed around a fictional amusement p
 
 🔗 **Live pages:**
 
-- Challenge 1: <https://dxterch.github.io/Lesson%2002/Challenge1/home.html>
-- Challenge 2: <https://dxterch.github.io/Lesson%2002/Challenge2/home.html>
-- Challenge 3: <https://dxterch.github.io/Lesson%2002/Challenge3/home.html>
+- Challenge 1: <https://dxterch.github.io/Challenge1/home.html>
+- Challenge 2: <https://dxterch.github.io/Challenge2/home.html>
+- Challenge 3: <https://dxterch.github.io/Challenge3/home.html>
 
-| Challenge | Topic | Description |
-| --- | --- | --- |
-| **Challenge 1** | Margin, Padding, Border | Styles a park welcome page — spacing, borders, fonts, colors, and button hover states. |
-| **Challenge 2** | Element, Class, & ID Selectors | Builds an attractions gallery of ride cards using flexbox, hover animations, and image styling. |
-| **Challenge 3** | Positioning | Builds an interactive park map with absolutely-positioned markers, hover tooltips, a pinned legend, and a fixed "Back to Top" button. |
+| Challenge       | Topic                          | Description                                                                                                                           |
+| --------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Challenge 1** | Margin, Padding, Border        | Styles a park welcome page — spacing, borders, fonts, colors, and button hover states.                                                |
+| **Challenge 2** | Element, Class, & ID Selectors | Builds an attractions gallery of ride cards using flexbox, hover animations, and image styling.                                       |
+| **Challenge 3** | Positioning                    | Builds an interactive park map with absolutely-positioned markers, hover tooltips, a pinned legend, and a fixed "Back to Top" button. |
 
 Each challenge folder contains:
 
